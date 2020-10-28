@@ -1,0 +1,9 @@
+.board-square {
+  height: 50px;
+  width: 50px;
+  border: 0.1rem solid #000;
+}
+
+.board-row {
+  display: flex;
+}
