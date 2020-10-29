@@ -3,6 +3,10 @@
   width: 500px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+}
+
+.gameboard-column {
+  display: grid;
   grid-template-rows: repeat(10, 1fr);
 }
 
