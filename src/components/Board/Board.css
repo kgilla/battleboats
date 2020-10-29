@@ -1,9 +1,23 @@
-.board-square {
+.gameboard {
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.board-square,
+.board-hit,
+.board-miss {
   height: 50px;
   width: 50px;
   border: 0.1rem solid #000;
 }
 
-.board-row {
-  display: flex;
+.board-miss {
+  background-color: red;
+}
+
+.board-hit {
+  background-color: blue;
 }
