@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { checkData } from "ssri";
 import "./Board.css";
 
 const Board = () => {
   let [board, setBoard] = useState([]);
+  let [gameStarted, setGameStarted] = useState(false);
+  let [shipYard, setShipYard] = useState([]);
 
   useEffect(() => {
     const buildBoard = () => {
@@ -24,8 +27,10 @@ const Board = () => {
     this.length = length;
     this.hit = () => {
       this.hitsLeft--;
+      console.log(this.hitsLeft);
       if (this.hitsLeft === 0) {
         this.isSunk = true;
+        console.log(this.isSunk);
       }
     };
   }
@@ -34,28 +39,32 @@ const Board = () => {
     let shipyard = [];
     const boats = [
       { name: "carrier", quantity: 1, size: 5 },
-      { name: "battleboat", quantity: 1, size: 4 },
-      { name: "destroyer", quantity: 1, size: 3 },
-      { name: "submarine", quantity: 1, size: 2 },
+      { name: "battleboat", quantity: 2, size: 4 },
+      { name: "destroyer", quantity: 3, size: 3 },
+      { name: "submarine", quantity: 4, size: 2 },
     ];
-    boats.forEach((boat, b) => {
+    boats.forEach((boat) => {
       for (let i = 0; i < boat.quantity; i++) {
-        shipyard.push(new Ship(boat.length));
-        findSpaces(boat.size);
+        let ship = new Ship(boat.size);
+        shipyard.push(ship);
+        findSpaces(boat.size, ship);
       }
     });
+    setShipYard(shipyard);
   };
 
-  const findSpaces = (size) => {
+  const findSpaces = (size, boat) => {
     let orientation = Math.floor(Math.random() * 2);
     let space = randomSpace(size, orientation);
-    checkSpaces(size, space, orientation);
+    let data = makeTestArray(size, space, orientation);
+    let results = checkData(data);
+    results ? findSpaces(size, boat) : changeData(data, boat);
   };
 
   const randomSpace = (size, orientation) => {
     let coords = getCoords(size, orientation);
     let space = board[coords[0]][coords[1]];
-    return space === null ? coords : randomSpace();
+    return space === null ? coords : randomSpace(size, orientation);
   };
 
   const getCoords = (size, orientation) => {
@@ -67,8 +76,7 @@ const Board = () => {
         ];
   };
 
-  const checkSpaces = (size, space, orientation) => {
-    console.log({ size, space, orientation });
+  const makeTestArray = (size, space, orientation) => {
     let data = [];
     if (orientation === 1) {
       for (let x = space[1]; x < space[1] + size; x++) {
@@ -79,42 +87,47 @@ const Board = () => {
         data.push([x, space[1]]);
       }
     }
-    console.log(data);
-    // horizontal.length === size ? console.log("yes!") : findSpaces(size);
-    // let result = horizontal.includes(1);
-    // if (result === true) {
-    //   findSpaces(size);
-    // } else {
-    //   let changes = [];
-    //   for (let i = space[1]; i < size + space[1]; i++) {
-    //     changes.push((space[0], i));
-    //   }
-    //   colorCoords(changes);
-    // }
+    return data;
   };
 
-  // const createTestArray = () => {
-  //   let horizontal = board[space[0]].slice(space[1], size + 1);
-  //   let vertical = [];
-  //   for (let x = space[0]; x < space[0] + size; x++) {
-  //     vertical.push(x, space[1]);
-  //   }
-  // };
+  const checkData = (data) => {
+    let test = [];
+    data.forEach((coord) => {
+      test.push(board[coord[0]][coord[1]]);
+    });
+    return test.includes(1);
+  };
 
-  const colorCoords = (changes) => {
-    console.log(changes);
+  const changeData = (data, boat) => {
+    let newBoard = board.slice();
+    data.forEach((coord) => {
+      newBoard[coord[0]][coord[1]] = boat;
+    });
+    setBoard(newBoard);
   };
 
   const handleClick = (e) => {
-    // let coords = e.target.attributes[0].value.split(",");
+    let coords = e.target.attributes[0].value.split(",");
+    let ship = board[coords[0]][coords[1]];
+    // let boat = shipYard.find((ship) => ship ===;
+    console.log();
+    if (ship && ship !== 1) {
+      console.log(ship);
+      ship.hit();
+      let newBoard = board.slice();
+      newBoard[coords[0]][coords[1]] = 1;
+      setBoard(newBoard);
+    } else {
+      console.log("miss");
+    }
     // let newBoard = [...board];
     // newBoard[parseInt(coords[0])][parseInt(coords[1])] = 1;
     // setBoard(newBoard);
-    randomBoats();
+    if (!gameStarted) {
+      randomBoats();
+      setGameStarted(true);
+    }
   };
-
-  // choosedirection
-  // get random coor
 
   return (
     <div className="gameboard">
