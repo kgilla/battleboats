@@ -1,36 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Board.css";
 import Gameboard from "../../store/gameboard";
 
 const Board = (props) => {
-  let [game, setGame] = useState(props.game);
-  let [board, setBoard] = useState(props.board);
+  const [message, setMessage] = useState("");
 
+  const receiveInput = (coords) => {
+    let ship = props.board[coords[0]][coords[1]];
+    ship ? setMessage(ship.hit()) : setMessage("Seems we missed");
+  };
   const handleClick = (e) => {
     let coords = e.target.attributes[0].value.split(",");
-    let ship = board[coords[0]][coords[1]];
-    ship ? console.log(ship) : console.log("miss");
-    // if (!gameStarted) {
-    //   randomBoats();
-    //   setGameStarted(true);
-    // } else {
-    //   if (message) setMessage("");
-    //   let coords = e.target.attributes[0].value.split(",");
-    //   let ship = board[coords[0]][coords[1]];
-    //   if (ship && ship !== 1) {
-    //     ship.hit();
-    //     let newBoard = board.slice();
-    //     newBoard[coords[0]][coords[1]] = 1;
-    //     setBoard(newBoard);
-    //   }
-    // }
+    receiveInput(coords);
   };
 
   return (
     <div className="gameboard-container">
       <div className="gameboard">
-        {board.map((row, x) => (
-          <div className="gameboard-column">
+        {props.board.map((row, x) => (
+          <div className="gameboard-column" key={x}>
             {row.map((cell, y) => (
               <div
                 key={`${x},${y}`}
@@ -48,6 +36,7 @@ const Board = (props) => {
           </div>
         ))}
       </div>
+      {message ? <h1>{message}</h1> : null}
     </div>
   );
 };
