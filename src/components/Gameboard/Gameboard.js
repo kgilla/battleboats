@@ -1,34 +1,33 @@
 import React, { useState } from "react";
-import "./Board.css";
-import Gameboard from "../../store/gameboard";
+import "./Gameboard.css";
+import Gameboard from "../../game_classes/gameboard/gameboard_class";
 
-const Board = (props) => {
+const Board = () => {
   const [message, setMessage] = useState("");
+  const [game, setGame] = useState(new Gameboard(true));
 
-  const receiveInput = (coords) => {
-    let ship = props.board[coords[0]][coords[1]];
-    ship ? setMessage(ship.hit()) : setMessage("Seems we missed");
-  };
   const handleClick = (e) => {
     let coords = e.target.attributes[0].value.split(",");
-    receiveInput(coords);
+    let response = game.receiveAttack(coords);
+    setMessage(response.message);
+    console.log(response);
   };
 
   return (
     <div className="gameboard-container">
       <div className="gameboard">
-        {props.board.map((row, x) => (
+        {game.board.map((row, x) => (
           <div className="gameboard-column" key={x}>
             {row.map((cell, y) => (
               <div
                 key={`${x},${y}`}
                 data={`${x},${y}`}
                 className={
-                  cell === null
-                    ? "board-square"
+                  cell === 0
+                    ? "board-miss"
                     : cell === 1
                     ? "board-hit"
-                    : "board-miss"
+                    : "board-square"
                 }
                 onClick={handleClick}
               ></div>

@@ -3,6 +3,7 @@
   width: 500px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  border: 0.4rem solid #000;
 }
 
 .gameboard-column {
@@ -17,10 +18,14 @@
   border: 0.1rem solid #000;
 }
 
+.board-square {
+  background-color: #444;
+}
+
 .board-miss {
-  background-color: red;
+  background-color: blue;
 }
 
 .board-hit {
-  background-color: blue;
+  background-color: red;
 }

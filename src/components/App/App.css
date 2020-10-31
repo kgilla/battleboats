@@ -1,7 +1,10 @@
 .App {
+  min-height: 100vh;
+  max-width: 100vw;
   display: grid;
   grid-template-columns: 1fr;
   align-content: center;
   justify-items: center;
   gap: 50px;
+  background-color: #666;
 }
