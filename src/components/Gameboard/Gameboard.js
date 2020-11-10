@@ -6,17 +6,28 @@ import Player from "../../game_classes/player/player_class";
 const Board = () => {
   const [message, setMessage] = useState("");
   const [game, setGame] = useState(new Gameboard(true));
-  const [player, setPlayer] = useState(new Player(game));
+  const [player, setPlayer] = useState(new Player(game, true));
   const [board, setBoard] = useState(game.board);
+  const [ships, setShips] = useState(10);
+  const [gameOver, setGameOver] = useState(false);
+
+  const attackBoard = () => {
+    let move = player.makeMove();
+    if (move.isSunk) {
+      setShips((prevState) => {
+        return prevState - 1;
+      });
+    }
+    setMessage(move.message);
+    setBoard(game.board);
+  };
 
   const handleClick = (e) => {
     // let coords = e.target.attributes[0].value.split(",");
     // let response = game.receiveAttack(coords);
     // setMessage(response.message);
     // console.log(response);
-    let move = player.makeMove();
-    console.log(move);
-    setBoard(game.board);
+    attackBoard();
   };
 
   return (
@@ -42,6 +53,7 @@ const Board = () => {
         ))}
       </div>
       {message ? <h1>{message}</h1> : null}
+      {ships ? <h1>{ships} Boats Left!</h1> : <h1>You Win!</h1>}
     </div>
   );
 };

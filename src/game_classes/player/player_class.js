@@ -2,12 +2,11 @@ class Player {
   constructor(enemyGameBoard) {
     this.enemyGameBoard = enemyGameBoard;
     this.makeMove = () => this.compMakeMove();
-    this.lastMove = {};
     this.choicesLeft = this.makeChoiceArray();
-    this.moveHistory = [];
+    this.lastMove = {};
   }
 
-  // last move needs coords, isHit, isSunk, direction, prevMoves
+  // All Computer Opponent Methods
 
   // Constructs array for all 100 potentail choices on gameboard
   makeChoiceArray = () => {
@@ -27,9 +26,10 @@ class Player {
       if (data) {
         let result = this.makeMoveOnBoard(data.coords);
         this.logMove(data, result);
+        return result;
       }
     } else {
-      this.makeRandomMove();
+      return this.makeRandomMove();
     }
   };
 
@@ -38,6 +38,7 @@ class Player {
     let data = this.makeRandomChoice();
     let result = this.makeMoveOnBoard(data.coords);
     this.logMove(data, result);
+    return result;
   };
 
   // Generates random choice
@@ -49,7 +50,6 @@ class Player {
 
   // Removes move from possible choices and uses gameboard method, return result
   makeMoveOnBoard = (move) => {
-    console.log(move);
     let moveToRemove = this.choicesLeft.find(
       (m) => m.x == move[0] && m.y == move[1]
     );
@@ -70,8 +70,6 @@ class Player {
       direction,
       prevMoves,
     };
-    console.log(this.lastMove);
-    this.moveHistory.push(this.lastMove);
   };
 
   // assesses lastMove data and directs to the appropriate handler
@@ -79,22 +77,17 @@ class Player {
     if (this.lastMove.isHit && !this.lastMove.isSunk) {
       if (this.lastMove.direction) {
         // last move was a hit and direction
-        let data = this.continueAttack();
-        return data;
+        return this.continueAttack();
       } else {
         // last move was a hit and no direction
-        let data = this.plotNextMove();
-        return data;
+        return this.plotNextMove();
       }
     } else if (this.lastMove.prevMoves && !this.lastMove.isSunk) {
-      console.log("hello");
       // last move was a miss but prev move was a hit and has other options
-      let data = this.determineAndFilter(this.lastMove.prevMoves);
-      console.log({ thisIsData: data });
-      return data;
+      return this.determineAndFilter(this.lastMove.prevMoves);
     } else {
       // last move was a hit and ship is sunk or last move was a miss and no prev move hit
-      this.makeRandomMove();
+      return this.makeRandomChoice();
     }
   };
 
@@ -102,19 +95,17 @@ class Player {
     if (moves.length > 1) {
       let nextMove = moves[Math.floor(Math.random() * moves.length)];
       let filteredMoves = moves.filter((m) => m !== nextMove);
-      let newMoves = {
+      return {
         coords: nextMove.coords,
         direction: nextMove.direction,
         prevMoves: filteredMoves,
       };
-      return newMoves;
     } else {
-      let newMoves = {
+      return {
         coords: moves[0].coords,
         direction: moves[0].direction,
-        prevMoves: [],
+        prevMoves: "",
       };
-      return newMoves;
     }
   };
 
@@ -123,8 +114,7 @@ class Player {
     if (this.verifyMoveIsLegal(move)) {
       return move;
     } else {
-      // need logic to go back the other way...
-      this.makeRandomMove();
+      return this.makeRandomChoice();
     }
   };
 
@@ -167,9 +157,10 @@ class Player {
   plotNextMove = () => {
     let nextMoves = this.makeNextMoves();
     let filteredMoves = this.filterNextMoves(nextMoves);
-    let data = this.determineAndFilter(filteredMoves);
-    console.log(data);
-    return data;
+    console.log(filteredMoves);
+    return filteredMoves.length > 0
+      ? this.determineAndFilter(filteredMoves)
+      : this.makeRandomChoice();
   };
 
   makeNextMoves = () => {
@@ -189,7 +180,7 @@ class Player {
         filteredMoves.push(move);
       }
     });
-    return filteredMoves.length > 0 ? filteredMoves : "";
+    return filteredMoves;
   };
 }
 

@@ -3,7 +3,6 @@ import Ship from "../ship/ship_class";
 class Gameboard {
   constructor(random) {
     this.board = this.create();
-    this.shipyard = [];
     this.placeBoat = () => {};
     this.receiveAttack = (coords) => this.checkSpace(coords);
     this.clearBoard = () => {
@@ -25,17 +24,23 @@ class Gameboard {
       return { message: "You already shot here, check your eyes captain!" };
     } else {
       // use hit method for boat, record hit on board, send data
-      let response = data.hit();
-      newBoard[coords[0]][coords[1]] = 1;
-      this.board = newBoard;
-      return {
-        isHit: true,
-        isSunk: response.isSunk,
-        message: "you hit something",
-        response,
-        newBoard,
-      };
+      return this.attackBoat(data, newBoard, coords);
     }
+  };
+
+  attackBoat = (data, newBoard, coords) => {
+    let response = data.hit();
+    newBoard[coords[0]][coords[1]] = 1;
+    this.board = newBoard;
+    return {
+      isHit: true,
+      isSunk: response.isSunk,
+      message: response.isSunk
+        ? `You sunk a ${response.name}`
+        : "You hit something",
+      response,
+      newBoard,
+    };
   };
 
   // Array of boats to use per gameboard
@@ -66,7 +71,6 @@ class Gameboard {
       for (let i = 0; i < boat.quantity; i++) {
         let ship = new Ship(boat.name, boat.size);
         this.findSpaces(boat.size, ship);
-        this.shipyard.push(boat);
       }
     });
   };
