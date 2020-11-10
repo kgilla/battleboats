@@ -189,7 +189,7 @@ class Player {
         filteredMoves.push(move);
       }
     });
-    return filteredMoves;
+    return filteredMoves.length > 0 ? filteredMoves : "";
   };
 }
 
