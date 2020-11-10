@@ -17,12 +17,13 @@ function App() {
     generateGame();
   };
 
+  const createPlayer = () => {};
+
   return (
     <div className="App">
       {gameStarted ? (
         <div className="board-container">
-          <Board turn={true} />
-          <Board turn={false} />
+          <Board />
         </div>
       ) : null}
       <div className="button-container">

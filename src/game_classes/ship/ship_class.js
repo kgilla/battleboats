@@ -11,9 +11,9 @@ class Ship {
     this.hitsLeft--;
     if (this.hitsLeft === 0) {
       this.isSunk = true;
-      return { isSunk: true, message: this.name + " has been sunk!" };
+      return { isSunk: true, name: this.name };
     } else {
-      return { isSunk: false, message: "You hit something" };
+      return { isSunk: false };
     }
   };
 }

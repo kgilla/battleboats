@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import "./Gameboard.css";
 import Gameboard from "../../game_classes/gameboard/gameboard_class";
+import Player from "../../game_classes/player/player_class";
 
 const Board = () => {
   const [message, setMessage] = useState("");
   const [game, setGame] = useState(new Gameboard(true));
+  const [player, setPlayer] = useState(new Player(game));
+  const [board, setBoard] = useState(game.board);
 
   const handleClick = (e) => {
-    let coords = e.target.attributes[0].value.split(",");
-    let response = game.receiveAttack(coords);
-    setMessage(response.message);
-    console.log(response);
+    // let coords = e.target.attributes[0].value.split(",");
+    // let response = game.receiveAttack(coords);
+    // setMessage(response.message);
+    // console.log(response);
+    let move = player.makeMove();
+    console.log(move);
+    setBoard(game.board);
   };
 
   return (
     <div className="gameboard-container">
       <div className="gameboard">
-        {game.board.map((row, x) => (
+        {board.map((row, x) => (
           <div className="gameboard-column" key={x}>
             {row.map((cell, y) => (
               <div
