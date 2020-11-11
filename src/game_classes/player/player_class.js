@@ -121,6 +121,7 @@ class Player {
   };
 
   determineNextAttack = () => {
+    console.log("hi");
     let c = this.lastMove.coords;
     if (this.lastMove.direction === "north") {
       return {

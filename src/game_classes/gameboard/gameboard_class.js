@@ -3,7 +3,6 @@ import Ship from "../ship/ship_class";
 class Gameboard {
   constructor(random) {
     this.board = this.create();
-    this.placeBoat = () => {};
     this.receiveAttack = (coords) => this.checkSpace(coords);
   }
 
@@ -63,6 +62,7 @@ class Gameboard {
 
   // Loop for filling gameboard with boats in random spaces
   generateRandomBoats = () => {
+    console.log("generating boats");
     this.boats.forEach((boat) => {
       for (let i = 0; i < boat.quantity; i++) {
         let ship = new Ship(boat.name, boat.size);

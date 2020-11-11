@@ -32,6 +32,7 @@ class Game {
   };
 
   createPlayer = (computer) => {
+    console.log("here");
     let game = new Gameboard();
     game.generateRandomBoats();
     let player = new Player(game, computer);
