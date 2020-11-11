@@ -1,10 +1,14 @@
 class Player {
   constructor(enemyGameBoard) {
     this.enemyGameBoard = enemyGameBoard;
-    this.makeMove = () => this.compMakeMove();
     this.choicesLeft = this.makeChoiceArray();
     this.lastMove = {};
   }
+
+  userMakeMove = (coords) => {
+    console.log(this.enemyGameBoard.board);
+    return this.makeMoveOnBoard(coords);
+  };
 
   // All Computer Opponent Methods
 
@@ -23,11 +27,9 @@ class Player {
   compMakeMove = () => {
     if (this.lastMove) {
       let data = this.assessLastMove();
-      if (data) {
-        let result = this.makeMoveOnBoard(data.coords);
-        this.logMove(data, result);
-        return result;
-      }
+      let result = this.makeMoveOnBoard(data.coords);
+      this.logMove(data, result);
+      return result;
     } else {
       return this.makeRandomMove();
     }
@@ -51,7 +53,7 @@ class Player {
   // Removes move from possible choices and uses gameboard method, return result
   makeMoveOnBoard = (move) => {
     let moveToRemove = this.choicesLeft.find(
-      (m) => m.x == move[0] && m.y == move[1]
+      (m) => m.x === move[0] && m.y === move[1]
     );
     let newChoices = this.choicesLeft.slice();
     newChoices = newChoices.filter((m) => m !== moveToRemove);
@@ -157,7 +159,6 @@ class Player {
   plotNextMove = () => {
     let nextMoves = this.makeNextMoves();
     let filteredMoves = this.filterNextMoves(nextMoves);
-    console.log(filteredMoves);
     return filteredMoves.length > 0
       ? this.determineAndFilter(filteredMoves)
       : this.makeRandomChoice();

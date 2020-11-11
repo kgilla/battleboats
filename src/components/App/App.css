@@ -8,3 +8,9 @@
   gap: 50px;
   background-color: #666;
 }
+
+.board-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}

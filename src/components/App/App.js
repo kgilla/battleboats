@@ -1,36 +1,33 @@
 import React, { useState } from "react";
 import "./App.css";
+
+import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 
 function App() {
-  let [gameStarted, setGameStarted] = useState(false);
+  const [game, setGame] = useState(new Game());
+  const [message, setMessage] = useState("");
+  const [boardOne, setBoardOne] = useState(game.playerOne.enemyGameBoard.board);
+  const [boardTwo, setBoardTwo] = useState(game.playerTwo.enemyGameBoard.board);
 
-  const generateGame = () => {
-    if (gameStarted) {
-      setGameStarted(false);
-    } else {
-      setGameStarted(true);
-    }
+  const handleInput = (input) => {
+    let response = game.handleUserTurn(input);
+    updateBoards();
+    setMessage(response.message);
   };
 
-  const handleClick = (e) => {
-    generateGame();
+  const updateBoards = () => {
+    setBoardOne(game.playerOne.enemyGameBoard.board);
+    setBoardTwo(game.playerTwo.enemyGameBoard.board);
   };
-
-  const createPlayer = () => {};
 
   return (
     <div className="App">
-      {gameStarted ? (
-        <div className="board-container">
-          <Board />
-        </div>
-      ) : null}
-      <div className="button-container">
-        <button onClick={handleClick} value="New Game">
-          New Game
-        </button>
+      <div className="board-container">
+        <Board board={boardOne} title="Your target" handleInput={handleInput} />
+        <Board board={boardTwo} title="Computer's Target" />
       </div>
+      {message ? <h1>{message}</h1> : null}
     </div>
   );
 }

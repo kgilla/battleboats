@@ -5,10 +5,6 @@ class Gameboard {
     this.board = this.create();
     this.placeBoat = () => {};
     this.receiveAttack = (coords) => this.checkSpace(coords);
-    this.clearBoard = () => {
-      this.board = this.create();
-    };
-    this.generateRandom = random ? this.generateRandomBoats() : null;
   }
 
   checkSpace = (coords) => {
