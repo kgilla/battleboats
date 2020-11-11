@@ -34,12 +34,13 @@ function App() {
     <div className="App">
       {gameStarted ? (
         <div className="board-container">
+          <Board board={boardTwo} title="Computer's Target" />
+
           <Board
             board={boardOne}
             title="Your target"
             handleInput={handleInput}
           />
-          <Board board={boardTwo} title="Computer's Target" />
         </div>
       ) : (
         <button onClick={startGame}>Start Game</button>

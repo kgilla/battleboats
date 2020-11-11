@@ -12,7 +12,7 @@ class Gameboard {
     this.board = newBoard;
     if (data === null) {
       // blank space, record miss and send data
-      newBoard[coords[0]][coords[1]] = 0;
+      newBoard[coords[0]][coords[1]] = "~";
       return { isHit: false, isSunk: false, message: "you missed", newBoard };
     } else if (data === 0) {
       // Previously shot
@@ -25,7 +25,7 @@ class Gameboard {
 
   attackBoat = (data, newBoard, coords) => {
     let response = data.hit();
-    newBoard[coords[0]][coords[1]] = 1;
+    newBoard[coords[0]][coords[1]] = "X";
     this.board = newBoard;
     return {
       isHit: true,
@@ -62,7 +62,6 @@ class Gameboard {
 
   // Loop for filling gameboard with boats in random spaces
   generateRandomBoats = () => {
-    console.log("generating boats");
     this.boats.forEach((boat) => {
       for (let i = 0; i < boat.quantity; i++) {
         let ship = new Ship(boat.name, boat.size);
@@ -91,12 +90,15 @@ class Gameboard {
   // Generates random coordinates based on size and orientation constraints
   getCoords = (size, orientation) => {
     return orientation === 1
-      ? [Math.floor(Math.random() * 10), Math.floor(Math.random() * (size + 1))]
-      : [
-          Math.floor(Math.random() * (size + 1)),
-          Math.floor(Math.random() * 10),
-        ];
+      ? [this.getRandomInt(0, 9), this.getRandomInt(0, size)]
+      : [this.getRandomInt(0, size), this.getRandomInt(0, 9)];
   };
+
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   // Placement functions
 

@@ -10,7 +10,9 @@ class Ship {
   handleHit = () => {
     this.hitsLeft--;
     if (this.hitsLeft === 0) {
+      console.log("sunk!");
       this.isSunk = true;
+      console.log(this);
       return { isSunk: true, name: this.name };
     } else {
       return { isSunk: false };

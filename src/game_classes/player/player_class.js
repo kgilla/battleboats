@@ -6,7 +6,6 @@ class Player {
   }
 
   userMakeMove = (coords) => {
-    console.log(this.enemyGameBoard.board);
     return this.makeMoveOnBoard(coords);
   };
 
@@ -121,7 +120,6 @@ class Player {
   };
 
   determineNextAttack = () => {
-    console.log("hi");
     let c = this.lastMove.coords;
     if (this.lastMove.direction === "north") {
       return {

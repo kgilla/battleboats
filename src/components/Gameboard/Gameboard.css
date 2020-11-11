@@ -1,9 +1,49 @@
+.gameboard-container {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 40px 1fr;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.gameboard-col-info {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  width: 440px;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.gameboard-row-info .info-square {
+  border: 0.1rem solid #444;
+}
+
+.gameboard-row-info {
+  grid-column: 1/2;
+  grid-row: 1/3;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.info-square {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .gameboard {
+  grid-column: 2/3;
+  grid-row: 2/3;
   height: 400px;
   width: 400px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  border: 0.4rem solid #000;
 }
 
 .gameboard-column {
@@ -14,18 +54,39 @@
 
 .board-square,
 .board-hit,
-.board-miss {
-  border: 0.1rem solid #000;
+.board-miss,
+.is-sunk {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid #222;
+  color: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .board-square {
-  background-color: #444;
+  background-color: #388e3c;
+  transition: all 0.2s ease-in-out;
+}
+
+.board-square:hover {
+  background-color: #7b1fa2;
 }
 
 .board-miss {
-  background-color: blue;
+  background-color: #1976d2;
+  font-size: 2.5rem;
 }
 
 .board-hit {
-  background-color: red;
+  background-color: #d32f2f;
+  border: 0.4rem solid #222;
+  font-size: 2rem;
+}
+
+.is-sunk {
+  background-color: black;
 }
