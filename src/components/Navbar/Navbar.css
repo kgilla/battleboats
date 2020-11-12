@@ -1,0 +1,29 @@
+.main-nav {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background-color: #222;
+}
+
+.nav-title {
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.nav-button {
+  padding: 0.5rem;
+  background: none;
+  color: #fff;
+  border: 0.2rem solid #fff;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+  color: #388e3c;
+  border: 0.2rem solid #388e3c;
+}

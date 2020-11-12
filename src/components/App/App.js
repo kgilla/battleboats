@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import "./reset.css";
 import "./App.css";
 
 import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
+import Navbar from "../Navbar";
 
 function App() {
   const [game, setGame] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
-  const [message, setMessage] = useState("");
   const [boardOne, setBoardOne] = useState("");
   const [boardOneData, setBoardOneData] = useState("");
   const [boardTwo, setBoardTwo] = useState("");
@@ -17,7 +18,6 @@ function App() {
     let response = game.handleTurn(input);
     if (response) {
       updateBoards();
-      setMessage(response.user.message);
     }
   };
 
@@ -44,27 +44,23 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar newGame={startGame} />
       {gameStarted ? (
         <div className="board-container">
           <Board
             board={boardTwo}
-            title="Computer's Target"
+            title="Your Boats"
             shipsLeft={boardTwoData.shipsLeft}
           />
 
           <Board
             board={boardOne}
-            title="Your target"
+            title="Enemy Boats"
             handleInput={handleInput}
             shipsLeft={boardOneData.shipsLeft}
           />
         </div>
-      ) : (
-        <button onClick={startGame}>Start Game</button>
-      )}
-
-      {message ? <h1>{message}</h1> : null}
-      <button onClick={newGame}>New Game</button>
+      ) : null}
     </div>
   );
 }

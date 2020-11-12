@@ -3,8 +3,6 @@
   grid-template-columns: 40px 1fr;
   grid-template-rows: 40px 1fr;
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  overflow: hidden;
 }
 
 .gameboard-col-info {
@@ -17,7 +15,7 @@
 }
 
 .gameboard-row-info .info-square {
-  border: 0.1rem solid #444;
+  border: 0.1rem solid transparent;
 }
 
 .gameboard-row-info {
@@ -55,7 +53,9 @@
 .board-square,
 .board-hit,
 .board-miss,
-.is-sunk {
+.is-sunk,
+.your-square,
+.your-ship {
   height: 40px;
   width: 40px;
   display: flex;
@@ -67,12 +67,13 @@
   box-sizing: border-box;
 }
 
-.board-square {
+.board-square,
+.your-square {
   background-color: #388e3c;
   transition: all 0.2s ease-in-out;
 }
 
-.board-square:hover {
+.your-square:hover {
   background-color: #7b1fa2;
 }
 
@@ -92,4 +93,26 @@
   border: 0.4rem solid #222;
   color: #222;
   font-size: 2rem;
+}
+
+.your-ship {
+  background-color: #666;
+}
+
+.your-info {
+  margin: 0.5rem 3rem;
+  border-bottom: 0.1rem solid #fff;
+  color: #4caf50;
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.pc-info {
+  margin: 0.5rem 3rem;
+  border-bottom: 0.1rem solid #fff;
+  color: #f44336;
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.5;
 }

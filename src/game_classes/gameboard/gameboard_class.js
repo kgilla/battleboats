@@ -115,13 +115,14 @@ class Gameboard {
 
   // Loop for attemping placement
   attemptPlacingBoat = (size, space, orientation) => {
-    let data = this.makeTestCoordArray(size, space, orientation);
-    let spotFilled = this.checkCoordArray(data);
-    return spotFilled ? false : data;
+    let boatData = this.makeTempCoordArray(size, space, orientation);
+    let data = this.makeSpacesAroundArray(size, space, orientation);
+    let spotFilled = this.checkCoordArray(boatData);
+    return spotFilled ? false : boatData;
   };
 
   // Generates tests array of coordinates for where the boat will be placed
-  makeTestCoordArray = (size, space, orientation) => {
+  makeTempCoordArray = (size, space, orientation) => {
     let data = [];
     if (orientation === 1) {
       for (let x = space[1]; x < space[1] + size; x++) {
@@ -133,6 +134,33 @@ class Gameboard {
       }
     }
     return data;
+  };
+
+  makeSpacesAroundArray = (size, space, orientation) => {
+    let data = [];
+    if (orientation === 1) {
+      for (let x = space[0] - 1; x < space[0] + 2; x++) {
+        for (let y = space[1] - 1; y < space[1] + (size + 1); y++) {
+          if (this.coordExists([x, y])) data.push([x, y]);
+        }
+      }
+    } else {
+      for (let x = space[1] - 1; x < space[1] + 2; x++) {
+        for (let y = space[0] - 1; y < space[0] + (size + 1); y++) {
+          if (this.coordExists([x, y])) data.push([x, y]);
+        }
+      }
+    }
+    console.log(data);
+  };
+
+  coordExists = (coord) => {
+    if (coord[0] < 10 && coord[0] >= 0) {
+      if (coord[1] < 10 && coord[1] >= 0) {
+        return true;
+      }
+    }
+    return false;
   };
 
   // Populates test array with values, ,checks values for a boat

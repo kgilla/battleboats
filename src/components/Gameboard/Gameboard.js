@@ -16,21 +16,23 @@ const Board = (props) => {
   };
 
   const determineClass = (cell) => {
-    let name = "";
     if (cell !== null) {
       if (cell.isSunk) {
-        name = "is-sunk";
+        return "is-sunk";
       } else if (cell === "~") {
-        name = "board-miss";
+        return "board-miss";
       } else if (cell.isHit) {
-        name = "board-hit";
+        return "board-hit";
+      } else if (props.handleInput) {
+        return "your-square";
       } else {
-        name = "board-square";
+        return "your-ship";
       }
+    } else if (props.handleInput) {
+      return "your-square";
     } else {
-      name = "board-square";
+      return "board-square";
     }
-    return name;
   };
 
   const determineInner = (cell) => {
@@ -78,8 +80,12 @@ const Board = (props) => {
         </div>
       </div>
       <div className="board-info">
-        <h2>{props.title}</h2>
-        <h2>Ships Left: {props.shipsLeft}</h2>
+        <h2 className={props.title === "Your Boats" ? "your-info" : "pc-info"}>
+          {props.title}
+        </h2>
+        <h2 className={props.title === "Your Boats" ? "your-info" : "pc-info"}>
+          Ships Left: {props.shipsLeft}
+        </h2>
       </div>
     </div>
   );
