@@ -88,5 +88,8 @@
 }
 
 .is-sunk {
-  background-color: black;
+  background-color: #555;
+  border: 0.4rem solid #222;
+  color: #222;
+  font-size: 2rem;
 }

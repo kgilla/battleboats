@@ -12,8 +12,13 @@ class Game {
   handleUserTurn = (coords) => {
     if (this.currentPlayer === this.playerOne) {
       let response = this.playerOne.userMakeMove(coords);
-      this.switchCurrentPlayer();
-      return response;
+      if (response) {
+        console.log(response);
+        this.switchCurrentPlayer();
+        return response;
+      } else {
+        return;
+      }
     }
   };
 

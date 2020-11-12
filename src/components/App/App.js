@@ -13,8 +13,10 @@ function App() {
 
   const handleInput = (input) => {
     let response = game.handleUserTurn(input);
-    updateBoards();
-    setMessage(response.message);
+    if (response) {
+      updateBoards();
+      setMessage(response.message);
+    }
   };
 
   const updateBoards = () => {

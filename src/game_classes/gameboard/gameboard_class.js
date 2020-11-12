@@ -14,9 +14,6 @@ class Gameboard {
       // blank space, record miss and send data
       newBoard[coords[0]][coords[1]] = "~";
       return { isHit: false, isSunk: false, message: "you missed", newBoard };
-    } else if (data === 0) {
-      // Previously shot
-      return { message: "You already shot here, check your eyes captain!" };
     } else {
       // use hit method for boat, record hit on board, send data
       return this.attackBoat(data, newBoard, coords);
@@ -24,8 +21,19 @@ class Gameboard {
   };
 
   attackBoat = (data, newBoard, coords) => {
-    let response = data.hit();
-    newBoard[coords[0]][coords[1]] = "X";
+    let response = data.boat.hit();
+    data.isHit = true;
+    if (response.isSunk === true) {
+      newBoard.map((col) => {
+        col.map((square) => {
+          if (square !== null) {
+            if (square.boat === data.boat) {
+              return (square.isSunk = true);
+            }
+          }
+        });
+      });
+    }
     this.board = newBoard;
     return {
       isHit: true,
@@ -137,7 +145,12 @@ class Gameboard {
   updateBoard = (data, boat) => {
     let newBoard = this.board.slice();
     data.forEach((coord) => {
-      newBoard[coord[0]][coord[1]] = boat;
+      let boardData = {
+        isHit: false,
+        isSunk: false,
+        boat,
+      };
+      newBoard[coord[0]][coord[1]] = boardData;
     });
     this.board = newBoard;
   };

@@ -6,7 +6,13 @@ class Player {
   }
 
   userMakeMove = (coords) => {
-    return this.makeMoveOnBoard(coords);
+    let move = { coords };
+    if (this.verifyMoveIsLegal(move)) {
+      return this.makeMoveOnBoard(coords);
+    } else {
+      console.log("hello");
+      return;
+    }
   };
 
   // All Computer Opponent Methods

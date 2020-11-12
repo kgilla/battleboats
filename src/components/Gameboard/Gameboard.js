@@ -2,6 +2,11 @@ import React from "react";
 import "./Gameboard.css";
 
 const Board = (props) => {
+  const info = {
+    colInfo: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    rowInfo: ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
+  };
+
   const handleClick = (e) => {
     let coords = e.target.attributes[0].value.split(",");
     let newCoords = coords.map((coord) => {
@@ -10,20 +15,14 @@ const Board = (props) => {
     props.handleInput(newCoords);
   };
 
-  const info = {
-    colInfo: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    rowInfo: ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
-  };
-
   const determineClass = (cell) => {
     let name = "";
     if (cell !== null) {
-      // if (cell === Object) {
       if (cell.isSunk) {
         name = "is-sunk";
       } else if (cell === "~") {
         name = "board-miss";
-      } else if (cell === "X") {
+      } else if (cell.isHit) {
         name = "board-hit";
       } else {
         name = "board-square";
@@ -35,10 +34,14 @@ const Board = (props) => {
   };
 
   const determineInner = (cell) => {
-    return cell === "X" ? cell : cell === "~" ? cell : null;
+    if (cell !== null) {
+      if (cell.isSunk || cell.isHit) {
+        return "X";
+      } else if (cell === "~") {
+        return "~";
+      }
+    }
   };
-
-  console.log(props.board);
 
   return (
     <div className="gameboard-container">

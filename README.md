@@ -1,2 +1,5 @@
-- get new game button functioning to clear board and repopulate.
-- need seperate function to
+- fix up visuals to better showcase information
+- add end game and ability to create new game
+- add ability to place ships
+- add visual representation for your own ships
+- add more depth to board data objects {ship, ishit issunk etc}
