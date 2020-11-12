@@ -1,4 +1,4 @@
-class Ship {
+class Boat {
   constructor(name, length) {
     this.name = name;
     this.hitsLeft = length;
@@ -18,4 +18,4 @@ class Ship {
   };
 }
 
-export default Ship;
+export default Boat;

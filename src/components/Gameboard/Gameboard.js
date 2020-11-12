@@ -44,36 +44,42 @@ const Board = (props) => {
   };
 
   return (
-    <div className="gameboard-container">
-      <div className="gameboard-col-info">
-        {info.rowInfo.map((row, i) => (
-          <div className="info-square" key={i}>
-            {row}
-          </div>
-        ))}
+    <div>
+      <div className="gameboard-container">
+        <div className="gameboard-col-info">
+          {info.rowInfo.map((row, i) => (
+            <div className="info-square" key={i}>
+              {row}
+            </div>
+          ))}
+        </div>
+        <div className="gameboard-row-info">
+          {info.colInfo.map((col, i) => (
+            <div className="info-square" key={i}>
+              {col}
+            </div>
+          ))}
+        </div>
+        <div className="gameboard">
+          {props.board.map((row, x) => (
+            <div className="gameboard-column" key={x}>
+              {row.map((cell, y) => (
+                <div
+                  key={`${x},${y}`}
+                  data={[x, y]}
+                  className={determineClass(cell)}
+                  onClick={props.handleInput ? handleClick : null}
+                >
+                  {determineInner(cell)}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="gameboard-row-info">
-        {info.colInfo.map((col, i) => (
-          <div className="info-square" key={i}>
-            {col}
-          </div>
-        ))}
-      </div>
-      <div className="gameboard">
-        {props.board.map((row, x) => (
-          <div className="gameboard-column" key={x}>
-            {row.map((cell, y) => (
-              <div
-                key={`${x},${y}`}
-                data={[x, y]}
-                className={determineClass(cell)}
-                onClick={props.handleInput ? handleClick : null}
-              >
-                {determineInner(cell)}
-              </div>
-            ))}
-          </div>
-        ))}
+      <div className="board-info">
+        <h2>{props.title}</h2>
+        <h2>Ships Left: {props.shipsLeft}</h2>
       </div>
     </div>
   );

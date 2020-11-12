@@ -1,9 +1,10 @@
-import Ship from "../ship/ship_class";
+import Boat from "../boat/boat_class";
 
 class Gameboard {
   constructor(random) {
     this.board = this.create();
     this.receiveAttack = (coords) => this.checkSpace(coords);
+    this.shipsLeft = 0;
   }
 
   checkSpace = (coords) => {
@@ -20,10 +21,11 @@ class Gameboard {
     }
   };
 
-  attackBoat = (data, newBoard, coords) => {
+  attackBoat = (data, newBoard) => {
     let response = data.boat.hit();
     data.isHit = true;
     if (response.isSunk === true) {
+      this.shipsLeft -= 1;
       newBoard.map((col) => {
         col.map((square) => {
           if (square !== null) {
@@ -72,8 +74,9 @@ class Gameboard {
   generateRandomBoats = () => {
     this.boats.forEach((boat) => {
       for (let i = 0; i < boat.quantity; i++) {
-        let ship = new Ship(boat.name, boat.size);
-        this.findSpaces(boat.size, ship);
+        let newBoat = new Boat(boat.name, boat.size);
+        this.findSpaces(boat.size, newBoat);
+        this.shipsLeft += 1;
       }
     });
   };

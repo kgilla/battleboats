@@ -5,42 +5,45 @@ class Game {
   constructor() {
     this.playerOne = this.createPlayer(false);
     this.playerTwo = this.createPlayer(true);
-    this.currentPlayer = this.playerOne;
     this.gameOver = false;
   }
 
-  handleUserTurn = (coords) => {
-    if (this.currentPlayer === this.playerOne) {
-      let response = this.playerOne.userMakeMove(coords);
-      if (response) {
-        console.log(response);
-        this.switchCurrentPlayer();
-        return response;
-      } else {
-        return;
-      }
+  handleTurn = (coords) => {
+    let user = this.userTurn(coords);
+    if (user) {
+      let comp = this.compTurn();
+      return { user, comp };
+    } else {
+      return;
     }
   };
 
-  handleCompTurn = () => {
-    let response = this.playerTwo.compMakeMove();
-    this.switchCurrentPlayer();
-    return response;
+  userTurn = (coords) => {
+    let user = this.playerOne.userMakeMove(coords);
+    if (user && user.isSunk) {
+      let win = this.checkWin(this.playerOne);
+    }
+    return user;
   };
 
-  switchCurrentPlayer = () => {
-    this.currentPlayer =
-      this.currentPlayer === this.playerOne ? this.playerTwo : this.playerOne;
-    if (this.currentPlayer === this.playerTwo) {
-      this.handleCompTurn();
+  compTurn = () => {
+    let comp = this.playerTwo.compMakeMove();
+    if (comp.isSunk) {
+      let win = this.checkWin(this.playerTwo);
+    }
+    return comp;
+  };
+
+  checkWin = (player) => {
+    if (player.enemyGameBoard.shipsLeft === 0) {
+      console.log("winner");
     }
   };
 
   createPlayer = (computer) => {
     let game = new Gameboard();
     game.generateRandomBoats();
-    let player = new Player(game, computer);
-    return player;
+    return new Player(game, computer);
   };
 }
 
