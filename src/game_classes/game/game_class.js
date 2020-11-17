@@ -8,36 +8,24 @@ class Game {
     this.gameOver = false;
   }
 
-  handleTurn = (coords) => {
-    let user = this.userTurn(coords);
+  userTurn = (coords) => {
+    let user = this.playerOne.userMakeMove(coords);
     if (user) {
-      let comp = this.compTurn();
-      return { user, comp };
+      user.win = this.checkWin(this.playerOne);
+      return user;
     } else {
       return;
     }
   };
 
-  userTurn = (coords) => {
-    let user = this.playerOne.userMakeMove(coords);
-    if (user && user.isSunk) {
-      let win = this.checkWin(this.playerOne);
-    }
-    return user;
-  };
-
   compTurn = () => {
     let comp = this.playerTwo.compMakeMove();
-    if (comp.isSunk) {
-      let win = this.checkWin(this.playerTwo);
-    }
+    comp.win = this.checkWin(this.playerTwo);
     return comp;
   };
 
   checkWin = (player) => {
-    if (player.enemyGameBoard.shipsLeft === 0) {
-      console.log("winner");
-    }
+    return player.enemyGameBoard.shipsLeft === 0 ? true : false;
   };
 
   createPlayer = (computer) => {

@@ -167,7 +167,6 @@ class Gameboard {
 
   // Populates test array with values, ,checks values for a boat
   checkCoordArray = (testCoords) => {
-    console.log(testCoords);
     let test = [];
     testCoords.forEach((c) => {
       test.push(this.board[c[0]][c[1]]);

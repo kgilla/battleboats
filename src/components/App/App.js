@@ -5,27 +5,59 @@ import "./App.css";
 import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 import Navbar from "../Navbar";
+import WinScreen from "../WinScreen";
 
 function App() {
   const [game, setGame] = useState("");
+  const [isWin, setIsWin] = useState(false);
+  const [message, setMessage] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [boardOne, setBoardOne] = useState("");
   const [boardOneData, setBoardOneData] = useState("");
   const [boardTwo, setBoardTwo] = useState("");
   const [boardTwoData, setBoardTwoData] = useState("");
 
+  // handle input
+  // update board
+  // check win
+  // if not win and is hit, go again - else switch player
+
   const handleInput = (input) => {
-    let response = game.handleTurn(input);
-    if (response) {
-      updateBoards();
+    let user = game.userTurn(input);
+    if (user) {
+      updateBoard(1);
+      if (user.win) {
+        handleWin("player 1 wins");
+      } else if (!user.isHit) {
+        takeCompTurn();
+      }
     }
   };
 
-  const updateBoards = () => {
-    setBoardOne(game.playerOne.enemyGameBoard.board);
-    setBoardTwo(game.playerTwo.enemyGameBoard.board);
-    setBoardOneData(game.playerOne.enemyGameBoard);
-    setBoardTwoData(game.playerTwo.enemyGameBoard);
+  const takeCompTurn = () => {
+    let comp = game.compTurn();
+    updateBoard(2);
+    if (comp.win) {
+      handleWin("player 2 wins");
+    } else if (comp.isHit) {
+      takeCompTurn();
+    }
+  };
+
+  const updateBoard = (player) => {
+    if (player === 1) {
+      setBoardOne(game.playerOne.enemyGameBoard.board);
+      setBoardOneData(game.playerOne.enemyGameBoard);
+    } else {
+      setBoardTwo(game.playerTwo.enemyGameBoard.board);
+      setBoardTwoData(game.playerTwo.enemyGameBoard);
+    }
+  };
+
+  const handleWin = (message) => {
+    setMessage(message);
+    setIsWin(true);
+    // setGameStarted(false)
   };
 
   const startGame = () => {
@@ -45,6 +77,7 @@ function App() {
   return (
     <div className="App">
       <Navbar newGame={startGame} />
+      {isWin ? <WinScreen message={message} /> : null}
       {gameStarted ? (
         <div className="board-container">
           <Board
