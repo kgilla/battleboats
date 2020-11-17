@@ -1,7 +1,7 @@
 import Boat from "../boat/boat_class";
 
 class Gameboard {
-  constructor(random) {
+  constructor() {
     this.board = this.create();
     this.receiveAttack = (coords) => this.checkSpace(coords);
     this.shipsLeft = 0;
@@ -25,27 +25,29 @@ class Gameboard {
     let response = data.boat.hit();
     data.isHit = true;
     if (response.isSunk === true) {
-      this.shipsLeft -= 1;
-      newBoard.map((col) => {
-        col.map((square) => {
-          if (square !== null) {
-            if (square.boat === data.boat) {
-              return (square.isSunk = true);
-            }
-          }
-        });
-      });
+      newBoard = this.sinkShip(data, newBoard);
     }
     this.board = newBoard;
     return {
       isHit: true,
       isSunk: response.isSunk,
-      message: response.isSunk
-        ? `You sunk a ${response.name}`
-        : "You hit something",
       response,
       newBoard,
     };
+  };
+
+  sinkShip = (data, newBoard) => {
+    this.shipsLeft -= 1;
+    newBoard.map((col) => {
+      col.map((square) => {
+        if (square !== null) {
+          if (square.boat === data.boat) {
+            return (square.isSunk = true);
+          }
+        }
+      });
+    });
+    return newBoard;
   };
 
   // Array of boats to use per gameboard
@@ -117,7 +119,7 @@ class Gameboard {
   attemptPlacingBoat = (size, space, orientation) => {
     let boatData = this.makeTempCoordArray(size, space, orientation);
     let data = this.makeSpacesAroundArray(size, space, orientation);
-    let spotFilled = this.checkCoordArray(boatData);
+    let spotFilled = this.checkCoordArray(data);
     return spotFilled ? false : boatData;
   };
 
@@ -125,8 +127,8 @@ class Gameboard {
   makeTempCoordArray = (size, space, orientation) => {
     let data = [];
     if (orientation === 1) {
-      for (let x = space[1]; x < space[1] + size; x++) {
-        data.push([space[0], x]);
+      for (let y = space[1]; y < space[1] + size; y++) {
+        data.push([space[0], y]);
       }
     } else {
       for (let x = space[0]; x < space[0] + size; x++) {
@@ -139,19 +141,19 @@ class Gameboard {
   makeSpacesAroundArray = (size, space, orientation) => {
     let data = [];
     if (orientation === 1) {
-      for (let x = space[0] - 1; x < space[0] + 2; x++) {
-        for (let y = space[1] - 1; y < space[1] + (size + 1); y++) {
-          if (this.coordExists([x, y])) data.push([x, y]);
-        }
+      // for (let x = space[0] - 1; x < space[0] + 2; x++) {
+      for (let y = space[1] - 1; y < space[1] + (size + 1); y++) {
+        if (this.coordExists([space[0], y])) data.push([space[0], y]);
+        // }
       }
     } else {
-      for (let x = space[1] - 1; x < space[1] + 2; x++) {
-        for (let y = space[0] - 1; y < space[0] + (size + 1); y++) {
-          if (this.coordExists([x, y])) data.push([x, y]);
-        }
+      // for (let x = space[1] - 1; x < space[1] + 2; x++) {
+      for (let x = space[0] - 1; x < space[0] + (size + 1); x++) {
+        if (this.coordExists([x, space[1]])) data.push([x, space[1]]);
+        // }
       }
     }
-    console.log(data);
+    return data;
   };
 
   coordExists = (coord) => {
@@ -165,6 +167,7 @@ class Gameboard {
 
   // Populates test array with values, ,checks values for a boat
   checkCoordArray = (testCoords) => {
+    console.log(testCoords);
     let test = [];
     testCoords.forEach((c) => {
       test.push(this.board[c[0]][c[1]]);
@@ -188,3 +191,8 @@ class Gameboard {
 }
 
 export default Gameboard;
+
+// generate all possible coords
+// choose random coord
+// choose orientation and test if okay
+// if not okay, change orientation and test again
