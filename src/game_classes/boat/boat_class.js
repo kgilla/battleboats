@@ -11,9 +11,9 @@ class Boat {
     this.hitsLeft--;
     if (this.hitsLeft === 0) {
       this.isSunk = true;
-      return { isSunk: true, name: this.name };
+      return this;
     } else {
-      return { isSunk: false };
+      return this;
     }
   };
 }

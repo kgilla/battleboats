@@ -3,6 +3,7 @@ class Player {
     this.enemyGameBoard = enemyGameBoard;
     this.choicesLeft = this.makeChoiceArray();
     this.lastMove = {};
+    this.hits = [];
   }
 
   userMakeMove = (coords) => {
@@ -10,7 +11,6 @@ class Player {
     if (this.verifyMoveIsLegal(move)) {
       return this.makeMoveOnBoard(coords);
     } else {
-      console.log("hello");
       return;
     }
   };
@@ -69,14 +69,22 @@ class Player {
   // Logs all appropriate lastMove data to be assessed next turn
   logMove = (data, results) => {
     let { coords, direction, prevMoves } = data;
-    let { isHit, isSunk } = results;
+    let { isHit, isSunk, boat } = results;
     this.lastMove = {
       coords,
       isHit,
       isSunk,
       direction,
       prevMoves,
+      boat,
     };
+    if (this.lastMove.isHit) {
+      this.hits.push(this.lastMove);
+    }
+    if (this.lastMove.isSunk) {
+      this.filterHits();
+      console.log({ theHits: this.hits });
+    }
   };
 
   // assesses lastMove data and directs to the appropriate handler
@@ -92,9 +100,33 @@ class Player {
     } else if (this.lastMove.prevMoves && !this.lastMove.isSunk) {
       // last move was a miss but prev move was a hit and has other options
       return this.determineAndFilter(this.lastMove.prevMoves);
+    } else if (this.hits.length > 0) {
+      let data = this.useHitsArray();
+      console.log(data);
+      return data;
     } else {
       // last move was a hit and ship is sunk or last move was a miss and no prev move hit
       return this.makeRandomChoice();
+    }
+  };
+
+  useHitsArray = () => {
+    console.log(this.hits);
+    this.lastMove = this.hits[0];
+    let nextMoves = this.makeNextMoves();
+    let filteredMoves = this.filterNextMoves(nextMoves);
+    if (filteredMoves.length > 0) {
+      this.hits = this.hits.slice(1);
+      console.log(this.hits);
+      return this.determineAndFilter(filteredMoves);
+    } else {
+      this.hits = this.hits.slice(1);
+      console.log(this.hits);
+      if (this.hits.length > 0) {
+        this.useHitsArray();
+      } else {
+        return this.makeRandomChoice();
+      }
     }
   };
 
@@ -188,6 +220,13 @@ class Player {
     });
     return filteredMoves;
   };
+
+  filterHits = () => {
+    this.hits = this.hits.filter((hit) => !hit.boat.isSunk);
+  };
 }
 
 export default Player;
+
+// add hits to hit array
+// if ship gets sunk, filter hits array

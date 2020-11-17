@@ -33,6 +33,7 @@ class Gameboard {
       isSunk: response.isSunk,
       response,
       newBoard,
+      boat: data.boat,
     };
   };
 
