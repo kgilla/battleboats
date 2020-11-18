@@ -16,6 +16,7 @@ function App() {
   const [boardOneData, setBoardOneData] = useState("");
   const [boardTwo, setBoardTwo] = useState("");
   const [boardTwoData, setBoardTwoData] = useState("");
+  const [userTurn, setUserTurn] = useState(true);
 
   // handle input
   // update board
@@ -23,13 +24,18 @@ function App() {
   // if not win and is hit, go again - else switch player
 
   const handleInput = (input) => {
-    let user = game.userTurn(input);
-    if (user) {
-      updateBoard(1);
-      if (user.win) {
-        handleWin("player 1 wins");
-      } else if (!user.isHit) {
-        takeCompTurn();
+    if (userTurn) {
+      let user = game.userTurn(input);
+      if (user) {
+        updateBoard(1);
+        if (user.win) {
+          handleWin("player 1 wins");
+        } else if (!user.isHit) {
+          setUserTurn(false);
+          setTimeout(() => {
+            takeCompTurn();
+          }, 1000);
+        }
       }
     }
   };
@@ -40,7 +46,11 @@ function App() {
     if (comp.win) {
       handleWin("player 2 wins");
     } else if (comp.isHit) {
-      takeCompTurn();
+      setTimeout(() => {
+        takeCompTurn();
+      }, 1000);
+    } else {
+      setUserTurn(true);
     }
   };
 

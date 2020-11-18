@@ -227,6 +227,3 @@ class Player {
 }
 
 export default Player;
-
-// add hits to hit array
-// if ship gets sunk, filter hits array
