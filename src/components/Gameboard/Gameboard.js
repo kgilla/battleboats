@@ -46,7 +46,7 @@ const Board = (props) => {
   };
 
   return (
-    <div>
+    <div className={props.active ? "active" : "inactive"}>
       <div className="gameboard-container">
         <div className="gameboard-col-info">
           {info.rowInfo.map((row, i) => (

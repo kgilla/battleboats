@@ -116,3 +116,25 @@
   font-size: 1.4rem;
   line-height: 1.5;
 }
+
+.active,
+.inactive {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.active {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #444;
+  }
+  100% {
+    background: transparent;
+  }
+}

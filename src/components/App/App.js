@@ -5,12 +5,12 @@ import "./App.css";
 import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 import Navbar from "../Navbar";
-import WinScreen from "../WinScreen";
+import GameOver from "../GameOver";
 
 function App() {
   const [game, setGame] = useState("");
-  const [isWin, setIsWin] = useState(false);
-  const [message, setMessage] = useState("");
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [winData, setWinData] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [boardOne, setBoardOne] = useState("");
   const [boardOneData, setBoardOneData] = useState("");
@@ -18,10 +18,17 @@ function App() {
   const [boardTwoData, setBoardTwoData] = useState("");
   const [userTurn, setUserTurn] = useState(true);
 
-  // handle input
-  // update board
-  // check win
-  // if not win and is hit, go again - else switch player
+  const playerWin = {
+    win: true,
+    title: "Winner!",
+    message: "You defeated the evil Battleboat threat!",
+  };
+
+  const compWin = {
+    win: false,
+    title: "Defeat!",
+    message: "You failed to overcome the impending Battleboat threat!",
+  };
 
   const handleInput = (input) => {
     if (userTurn) {
@@ -29,12 +36,12 @@ function App() {
       if (user) {
         updateBoard(1);
         if (user.win) {
-          handleWin("player 1 wins");
+          handleGameOver(playerWin);
         } else if (!user.isHit) {
           setUserTurn(false);
           setTimeout(() => {
             takeCompTurn();
-          }, 1000);
+          }, 500);
         }
       }
     }
@@ -44,11 +51,11 @@ function App() {
     let comp = game.compTurn();
     updateBoard(2);
     if (comp.win) {
-      handleWin("player 2 wins");
+      handleGameOver(compWin);
     } else if (comp.isHit) {
       setTimeout(() => {
         takeCompTurn();
-      }, 1000);
+      }, 500);
     } else {
       setUserTurn(true);
     }
@@ -64,10 +71,9 @@ function App() {
     }
   };
 
-  const handleWin = (message) => {
-    setMessage(message);
-    setIsWin(true);
-    // setGameStarted(false)
+  const handleGameOver = (data) => {
+    setWinData(data);
+    setIsGameOver(true);
   };
 
   const startGame = () => {
@@ -77,23 +83,24 @@ function App() {
     setBoardTwo(newGame.playerTwo.enemyGameBoard.board);
     setBoardOneData(newGame.playerOne.enemyGameBoard);
     setBoardTwoData(newGame.playerTwo.enemyGameBoard);
+    setUserTurn(true);
     setGameStarted(true);
-  };
-
-  const newGame = () => {
-    startGame();
+    setIsGameOver(false);
   };
 
   return (
     <div className="App">
       <Navbar newGame={startGame} />
-      {isWin ? <WinScreen message={message} /> : null}
+      {isGameOver ? (
+        <GameOver data={winData} handleNewGame={startGame} />
+      ) : null}
       {gameStarted ? (
         <div className="board-container">
           <Board
             board={boardTwo}
             title="Your Boats"
             shipsLeft={boardTwoData.shipsLeft}
+            active={!userTurn ? true : false}
           />
 
           <Board
@@ -101,6 +108,7 @@ function App() {
             title="Enemy Boats"
             handleInput={handleInput}
             shipsLeft={boardOneData.shipsLeft}
+            active={userTurn ? true : false}
           />
         </div>
       ) : null}

@@ -40,7 +40,7 @@ class Gameboard {
   sinkShip = (data, newBoard) => {
     this.shipsLeft -= 1;
     newBoard.map((col) => {
-      col.map((square) => {
+      return col.map((square) => {
         if (square !== null) {
           if (square.boat === data.boat) {
             return (square.isSunk = true);

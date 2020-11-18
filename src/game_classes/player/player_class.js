@@ -83,7 +83,6 @@ class Player {
     }
     if (this.lastMove.isSunk) {
       this.filterHits();
-      console.log({ theHits: this.hits });
     }
   };
 
@@ -102,7 +101,6 @@ class Player {
       return this.determineAndFilter(this.lastMove.prevMoves);
     } else if (this.hits.length > 0) {
       let data = this.useHitsArray();
-      console.log(data);
       return data;
     } else {
       // last move was a hit and ship is sunk or last move was a miss and no prev move hit
@@ -111,17 +109,14 @@ class Player {
   };
 
   useHitsArray = () => {
-    console.log(this.hits);
     this.lastMove = this.hits[0];
     let nextMoves = this.makeNextMoves();
     let filteredMoves = this.filterNextMoves(nextMoves);
     if (filteredMoves.length > 0) {
       this.hits = this.hits.slice(1);
-      console.log(this.hits);
       return this.determineAndFilter(filteredMoves);
     } else {
       this.hits = this.hits.slice(1);
-      console.log(this.hits);
       if (this.hits.length > 0) {
         this.useHitsArray();
       } else {
@@ -152,6 +147,8 @@ class Player {
     let move = this.determineNextAttack();
     if (this.verifyMoveIsLegal(move)) {
       return move;
+    } else if (this.hits.length > 0) {
+      return this.useHitsArray();
     } else {
       return this.makeRandomChoice();
     }
@@ -222,7 +219,8 @@ class Player {
   };
 
   filterHits = () => {
-    this.hits = this.hits.filter((hit) => !hit.boat.isSunk);
+    this.hits = this.hits.filter((hit) => hit.boat.isSunk !== true);
+    console.log(this.hits);
   };
 }
 

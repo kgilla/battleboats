@@ -26,4 +26,5 @@
 .nav-button:hover {
   color: #388e3c;
   border: 0.2rem solid #388e3c;
+  cursor: pointer;
 }
