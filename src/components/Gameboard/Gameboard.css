@@ -75,6 +75,7 @@
 
 .your-square:hover {
   background-color: #7b1fa2;
+  cursor: crosshair;
 }
 
 .board-miss {
@@ -121,6 +122,7 @@
 .inactive {
   padding: 1rem;
   border-radius: 0.5rem;
+  border: 0.1rem solid transparent;
 }
 
 .active {
@@ -133,6 +135,7 @@
   }
   50% {
     background: #444;
+    border: 0.1rem solid #aaa;
   }
   100% {
     background: transparent;

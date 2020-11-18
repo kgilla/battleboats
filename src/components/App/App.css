@@ -23,7 +23,7 @@ body {
 
 .board-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 200px;
+  grid-template-columns: 1fr 10rem 1fr;
+  gap: 1rem;
   margin-top: 1rem;
 }

@@ -6,6 +6,7 @@ import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 import Navbar from "../Navbar";
 import GameOver from "../GameOver";
+import TurnIndicator from "../TurnIndicator";
 
 function App() {
   const [game, setGame] = useState("");
@@ -41,7 +42,7 @@ function App() {
           setUserTurn(false);
           setTimeout(() => {
             takeCompTurn();
-          }, 500);
+          }, 1000);
         }
       }
     }
@@ -55,7 +56,7 @@ function App() {
     } else if (comp.isHit) {
       setTimeout(() => {
         takeCompTurn();
-      }, 500);
+      }, 1000);
     } else {
       setUserTurn(true);
     }
@@ -102,7 +103,7 @@ function App() {
             shipsLeft={boardTwoData.shipsLeft}
             active={!userTurn ? true : false}
           />
-
+          <TurnIndicator direction={userTurn ? "right" : "left"} />
           <Board
             board={boardOne}
             title="Enemy Boats"
