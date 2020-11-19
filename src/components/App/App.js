@@ -5,7 +5,7 @@ import "./App.css";
 import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 import Navbar from "../Navbar";
-import Intro from "../Intro";
+import Setup from "../Setup";
 import GameOver from "../GameOver";
 import TurnIndicator from "../TurnIndicator";
 
@@ -111,6 +111,7 @@ function App() {
             title="Your Boats"
             shipsLeft={boardTwoData.shipsLeft}
             active={!userTurn ? true : false}
+            showInfo={true}
           />
           <TurnIndicator direction={userTurn ? "right" : "left"} />
           <Board
@@ -119,10 +120,11 @@ function App() {
             handleInput={handleInput}
             shipsLeft={boardOneData.shipsLeft}
             active={userTurn ? true : false}
+            showInfo={true}
           />
         </div>
       ) : (
-        <Intro sendUserBoard={handleUserBoard} />
+        <Setup sendUserBoard={handleUserBoard} />
       )}
     </div>
   );

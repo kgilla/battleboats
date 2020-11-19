@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./Intro.css";
+import "./Setup.css";
+
 import Board from "../Gameboard";
 import Boatyard from "../Boatyard";
-
 import Gameboard from "../../game_classes/gameboard/gameboard_class";
 import Boat from "../../game_classes/boat/boat_class";
 
-const Intro = (props) => {
+const Setup = (props) => {
   const [gameboard, setGameboard] = useState("");
   const [board, setBoard] = useState("");
   const [boats, setBoats] = useState("");
@@ -98,4 +98,4 @@ const Intro = (props) => {
   );
 };
 
-export default Intro;
+export default Setup;

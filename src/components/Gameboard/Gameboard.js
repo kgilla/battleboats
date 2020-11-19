@@ -1,6 +1,8 @@
 import React from "react";
 import "./Gameboard.css";
 
+import BoardInfo from "../BoardInfo";
+
 const Board = (props) => {
   const info = {
     colInfo: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -96,10 +98,9 @@ const Board = (props) => {
           ))}
         </div>
       </div>
-      <div className={props.title === "Your Boats" ? "your-info" : "pc-info"}>
-        <h2 className="info-title">{props.title}</h2>
-        <h2 className="info-ship-count">Ships Left: {props.shipsLeft}</h2>
-      </div>
+      {props.showInfo ? (
+        <BoardInfo shipsLeft={props.shipsLeft} title={props.title} />
+      ) : null}
     </div>
   );
 };
