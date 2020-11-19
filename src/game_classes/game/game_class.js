@@ -5,7 +5,6 @@ class Game {
   constructor() {
     this.playerOne = this.createPlayer(false);
     this.playerTwo = this.createPlayer(true);
-    this.gameOver = false;
   }
 
   userTurn = (coords) => {

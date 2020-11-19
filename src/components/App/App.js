@@ -5,6 +5,7 @@ import "./App.css";
 import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 import Navbar from "../Navbar";
+import Intro from "../Intro";
 import GameOver from "../GameOver";
 import TurnIndicator from "../TurnIndicator";
 
@@ -112,7 +113,9 @@ function App() {
             active={userTurn ? true : false}
           />
         </div>
-      ) : null}
+      ) : (
+        <Intro />
+      )}
     </div>
   );
 }

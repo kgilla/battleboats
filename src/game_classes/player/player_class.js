@@ -219,9 +219,7 @@ class Player {
   };
 
   filterHits = () => {
-    console.log(this.hits);
     this.hits = this.hits.filter((hit) => hit.boat.isSunk !== true);
-    console.log(this.hits);
   };
 }
 

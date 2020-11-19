@@ -8,10 +8,7 @@ const Board = (props) => {
   };
 
   const handleClick = (e) => {
-    let coords = e.target.attributes[0].value.split(",");
-    let newCoords = coords.map((coord) => {
-      return parseInt(coord);
-    });
+    let newCoords = dataToCoords(e);
     props.handleInput(newCoords);
   };
 
@@ -45,6 +42,39 @@ const Board = (props) => {
     }
   };
 
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    let square = dataToCoords(e);
+    props.sendCoord(square);
+    // let array = calcArray(square, size);
+    // let newBoard = props.board.slice();
+    // array.forEach((coord) => {
+    //   newBoard[coord[0]][coord[1]] = "pizza";
+    // });
+    // console.log(newBoard);
+  };
+
+  const calcArray = (square, size, orientation) => {
+    let array = [];
+    for (let i = 0; i < size; i++) {
+      let newSquare = [square[0] + i, square[1]];
+      array.push(newSquare);
+    }
+    return array;
+  };
+
+  const dataToCoords = (e) => {
+    let square = e.target.attributes[0].value.split(",");
+    square = square.map((coord) => {
+      return parseInt(coord);
+    });
+    return square;
+  };
+
   return (
     <div className={props.active ? "active" : "inactive"}>
       <div className="gameboard-container">
@@ -71,6 +101,8 @@ const Board = (props) => {
                   data={[x, y]}
                   className={determineClass(cell)}
                   onClick={props.handleInput ? handleClick : null}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
                 >
                   {determineInner(cell)}
                 </div>
@@ -79,13 +111,9 @@ const Board = (props) => {
           ))}
         </div>
       </div>
-      <div className="board-info">
-        <h2 className={props.title === "Your Boats" ? "your-info" : "pc-info"}>
-          {props.title}
-        </h2>
-        <h2 className={props.title === "Your Boats" ? "your-info" : "pc-info"}>
-          Ships Left: {props.shipsLeft}
-        </h2>
+      <div className={props.title === "Your Boats" ? "your-info" : "pc-info"}>
+        <h2 className="info-title">{props.title}</h2>
+        <h2 className="info-ship-count">Ships Left: {props.shipsLeft}</h2>
       </div>
     </div>
   );
