@@ -50,21 +50,6 @@ const Board = (props) => {
     e.preventDefault();
     let square = dataToCoords(e);
     props.sendCoord(square);
-    // let array = calcArray(square, size);
-    // let newBoard = props.board.slice();
-    // array.forEach((coord) => {
-    //   newBoard[coord[0]][coord[1]] = "pizza";
-    // });
-    // console.log(newBoard);
-  };
-
-  const calcArray = (square, size, orientation) => {
-    let array = [];
-    for (let i = 0; i < size; i++) {
-      let newSquare = [square[0] + i, square[1]];
-      array.push(newSquare);
-    }
-    return array;
   };
 
   const dataToCoords = (e) => {

@@ -1,10 +1,10 @@
 import Boat from "../boat/boat_class";
 
 class Gameboard {
-  constructor() {
-    this.board = this.create();
+  constructor(board) {
+    this.board = board ? board : this.create();
     this.receiveAttack = (coords) => this.checkSpace(coords);
-    this.shipsLeft = 0;
+    this.shipsLeft = 10;
   }
 
   checkSpace = (coords) => {
@@ -79,7 +79,6 @@ class Gameboard {
       for (let i = 0; i < boat.quantity; i++) {
         let newBoat = new Boat(boat.name, boat.size);
         this.findSpaces(boat.size, newBoat);
-        this.shipsLeft += 1;
       }
     });
   };

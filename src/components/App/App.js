@@ -78,8 +78,8 @@ function App() {
     setIsGameOver(true);
   };
 
-  const startGame = () => {
-    let newGame = new Game();
+  const startGame = (board) => {
+    let newGame = new Game(board);
     setGame(newGame);
     setBoardOne(newGame.playerOne.enemyGameBoard.board);
     setBoardTwo(newGame.playerTwo.enemyGameBoard.board);
@@ -90,9 +90,17 @@ function App() {
     setIsGameOver(false);
   };
 
+  const handleUserBoard = (board) => {
+    startGame(board);
+  };
+
+  const handleNewGame = () => {
+    setGameStarted(false);
+  };
+
   return (
     <div className="App">
-      <Navbar newGame={startGame} />
+      <Navbar newGame={handleNewGame} />
       {isGameOver ? (
         <GameOver data={winData} handleNewGame={startGame} />
       ) : null}
@@ -114,7 +122,7 @@ function App() {
           />
         </div>
       ) : (
-        <Intro />
+        <Intro sendUserBoard={handleUserBoard} />
       )}
     </div>
   );

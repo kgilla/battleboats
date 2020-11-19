@@ -1,27 +1,61 @@
-import React, { useState, useEffect } from "react";
-import Boat from "../../game_classes/boat/boat_class";
+import React from "react";
+import "./Boatyard.css";
 
 const Boatyard = (props) => {
-  const [boats, setBoats] = useState("");
-  const handleClick = (e) => {};
+  const handleClick = (e) => {
+    props.orientation === 0
+      ? props.sendBoatOrientation(1)
+      : props.sendBoatOrientation(0);
+  };
 
-  useEffect(() => {
-    let newBoats = [];
-    props.gameboard.boats.forEach((boat) => {
-      for (let i = 0; i < boat.quantity; i++) {
-        newBoats.push(new Boat(boat.name, boat.size));
-      }
-    });
-    console.log(newBoats);
-    setBoats(newBoats);
-  }, []);
+  const handleDragStart = (e) => {
+    props.orientation === 0 ? handleOffsetX(e) : handleOffsetY(e);
+  };
+
+  const handleOffsetX = (e) => {
+    let offset = e.nativeEvent.offsetX - 40;
+    offset = Math.floor(offset / 40) + 1;
+    props.sendOffset(offset);
+  };
+
+  const handleOffsetY = (e) => {
+    let offset = e.nativeEvent.offsetY - 40;
+    offset = Math.floor(offset / 40) + 1;
+    props.sendOffset(offset);
+  };
+
+  const handleGameStart = () => {
+    props.startGame();
+  };
+
+  const createBoat = () => {
+    let boat = [];
+    for (let i = 0; i < props.boats[0].length; i++) {
+      boat.push(<div key={i} className="boat"></div>);
+    }
+    return boat;
+  };
 
   return (
-    <div className="shipyard">
-      <h1 className="shipyard-title">Shipyard</h1>
+    <div className="boatyard">
+      <h1 className="boatyard-title">Shipyard</h1>
       <div className="dock">
-        <div>{boats ? boats[0].name : null}</div>
+        <div
+          className={
+            props.orientation === 0 ? "boat-horizontal" : "boat-vertical"
+          }
+          draggable
+          onDragStart={handleDragStart}
+          onClick={handleClick}
+        >
+          {props.boats.length > 0 ? (
+            createBoat()
+          ) : (
+            <button onClick={handleGameStart}>Start Game</button>
+          )}
+        </div>
       </div>
+      <h1>{props.orientation === 0 ? "horizontal" : "vertical"}</h1>
       <button onClick={handleClick}>Rotate</button>
     </div>
   );

@@ -1,0 +1,36 @@
+.boatyard {
+  margin-top: 1rem;
+}
+
+.boatyard-title {
+  margin: 1rem 0;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.dock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 240px;
+  width: 240px;
+  padding: 1rem;
+  background-color: #1e88e5;
+  border: 0.2rem solid #000;
+}
+
+.boat {
+  height: 40px;
+  width: 40px;
+  border: 0.1rem solid #333;
+  background-color: #666;
+}
+
+.boat-horizontal {
+  display: flex;
+}
+
+.boat-vertical {
+  display: flex;
+  flex-direction: column;
+}

@@ -78,7 +78,7 @@ class Player {
       prevMoves,
       boat,
     };
-    if (this.lastMove.isHit) {
+    if (this.lastMove.isHit && !this.lastMove.isSunk) {
       this.hits.push(this.lastMove);
     }
     if (this.lastMove.isSunk) {
@@ -113,10 +113,10 @@ class Player {
     let nextMoves = this.makeNextMoves();
     let filteredMoves = this.filterNextMoves(nextMoves);
     if (filteredMoves.length > 0) {
-      this.hits = this.hits.slice(1);
+      this.filterHits();
       return this.determineAndFilter(filteredMoves);
     } else {
-      this.hits = this.hits.slice(1);
+      this.filterHits();
       if (this.hits.length > 0) {
         this.useHitsArray();
       } else {
@@ -219,7 +219,7 @@ class Player {
   };
 
   filterHits = () => {
-    this.hits = this.hits.filter((hit) => hit.boat.isSunk !== true);
+    this.hits = this.hits.filter((hit) => !hit.boat.isSunk);
   };
 }
 

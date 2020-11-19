@@ -2,9 +2,9 @@ import Gameboard from "../gameboard/gameboard_class";
 import Player from "../player/player_class";
 
 class Game {
-  constructor() {
+  constructor(board) {
     this.playerOne = this.createPlayer(false);
-    this.playerTwo = this.createPlayer(true);
+    this.playerTwo = this.createPlayer(true, board);
   }
 
   userTurn = (coords) => {
@@ -27,9 +27,9 @@ class Game {
     return player.enemyGameBoard.shipsLeft === 0 ? true : false;
   };
 
-  createPlayer = (computer) => {
-    let game = new Gameboard();
-    game.generateRandomBoats();
+  createPlayer = (computer, board = "") => {
+    let game = new Gameboard(board);
+    if (board === "") game.generateRandomBoats();
     return new Player(game, computer);
   };
 }
