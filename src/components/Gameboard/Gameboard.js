@@ -9,8 +9,14 @@ const Board = (props) => {
     rowInfo: ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
   };
 
-  const handleClick = (e) => {
+  const handleEdit = (e) => {
     let newCoords = dataToCoords(e);
+    props.handleEdit(props.board[newCoords[0]][newCoords[1]]);
+  };
+
+  const handleMove = (e) => {
+    let newCoords = dataToCoords(e);
+    console.log(newCoords);
     props.handleInput(newCoords);
   };
 
@@ -87,7 +93,13 @@ const Board = (props) => {
                   key={`${x},${y}`}
                   data={[x, y]}
                   className={determineClass(cell)}
-                  onClick={props.handleInput ? handleClick : null}
+                  onClick={
+                    props.handleInput
+                      ? handleMove
+                      : props.handleEdit
+                      ? handleEdit
+                      : null
+                  }
                   onDragOver={handleDragOver}
                   onDrop={handleDrop}
                 >

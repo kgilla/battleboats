@@ -20,6 +20,7 @@
   border: 0.2rem solid #fff;
   border-radius: 0.5rem;
   font-size: 1.2rem;
+  font-family: inherit;
   transition: all 0.2s ease-in-out;
 }
 

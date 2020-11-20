@@ -1,5 +1,52 @@
-.intro-container {
+.setup-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 1rem;
+}
+
+.setup-main-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  align-content: center;
+  justify-items: center;
+}
+
+.setup-button-box {
+  display: flex;
+  justify-content: space-around;
+}
+
+.start-button {
+  padding: 1rem;
+  border: 0.1rem solid #222;
+  border-radius: 0.5rem;
+  background-color: #43a047;
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: inherit;
+}
+
+.start-button:disabled {
+  color: #aaa;
+  filter: brightness(50%);
+}
+
+.setup-button {
+  padding: 1rem;
+  border: 0.1rem solid #222;
+  border-radius: 0.5rem;
+  background-color: #1976d2;
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: inherit;
+}
+
+.setup-gameboard {
+  position: relative;
+}
+
+#tip3 {
+  top: 10px;
+  right: -100px;
 }

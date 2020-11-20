@@ -24,10 +24,6 @@ const Boatyard = (props) => {
     props.sendOffset(offset);
   };
 
-  const handleGameStart = () => {
-    props.startGame();
-  };
-
   const createBoat = () => {
     let boat = [];
     for (let i = 0; i < props.boats[0].length; i++) {
@@ -38,8 +34,11 @@ const Boatyard = (props) => {
 
   return (
     <div className="boatyard">
-      <h1 className="boatyard-title">Shipyard</h1>
-      <div className="dock">
+      <h1 className="boatyard-title">Place Your Boats</h1>
+      <p className="floating-tip" id="tip1">
+        Try clicking me!
+      </p>
+      <div className="dock" onClick={handleClick}>
         <div
           className={
             props.orientation === 0 ? "boat-horizontal" : "boat-vertical"
@@ -48,15 +47,15 @@ const Boatyard = (props) => {
           onDragStart={handleDragStart}
           onClick={handleClick}
         >
-          {props.boats.length > 0 ? (
-            createBoat()
-          ) : (
-            <button onClick={handleGameStart}>Start Game</button>
-          )}
+          {props.boats.length > 0 ? createBoat() : <h2>All Set!</h2>}
         </div>
       </div>
-      <h1>{props.orientation === 0 ? "horizontal" : "vertical"}</h1>
-      <button onClick={handleClick}>Rotate</button>
+      {props.boats.length > 0 ? (
+        <h2 className="boat-name">{props.boats[0].name}</h2>
+      ) : null}
+      <p className="floating-tip" id="tip2">
+        Try dragging me!
+      </p>
     </div>
   );
 };

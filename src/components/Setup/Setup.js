@@ -57,8 +57,8 @@ const Setup = (props) => {
   const handleRandom = () => {
     gameboard.board = gameboard.create();
     gameboard.generateRandomBoats();
-    updateBoard();
     setBoats("");
+    updateBoard();
   };
 
   const handleReset = () => {
@@ -78,22 +78,67 @@ const Setup = (props) => {
     setBoats(newBoats);
   };
 
+  const handleCoordChange = (square) => {
+    if (square) {
+      setBoats([square.boat, ...boats]);
+      gameboard.board = gameboard.board.map((col) => {
+        return col.map((ele) => {
+          if (ele) {
+            if (ele.boat === square.boat) {
+              return null;
+            } else {
+              return ele;
+            }
+          }
+          return null;
+        });
+      });
+      updateBoard();
+    }
+  };
+
   return (
-    <div>
+    <div className="setup-container">
       {gameboard ? (
-        <div className="intro-container">
+        <div className="setup-main-container">
           <Boatyard
             boats={boats}
             orientation={orientation}
             sendBoatOrientation={determineOrientation}
             sendOffset={handleOffset}
-            startGame={handleGameStart}
           />
-          <Board board={board} sendCoord={handleCoord} />
-          <button onClick={handleRandom}>Random</button>
-          <button onClick={handleReset}>Reset</button>
+          <div className="setup-gameboard">
+            <p className="floating-tip" id="tip3">
+              Click on placed boats to remove them!
+            </p>
+            <Board
+              board={board}
+              sendCoord={handleCoord}
+              handleEdit={handleCoordChange}
+            />
+          </div>
         </div>
       ) : null}
+      <div className="setup-button-box">
+        <button className="setup-button" onClick={handleRandom}>
+          Random Boats
+        </button>
+        <button className="setup-button" onClick={handleReset}>
+          Reset Board
+        </button>
+        <button className="setup-button" onClick={handleRandom}>
+          How To?
+        </button>
+        {boats.length > 0 ? (
+          <button disabled className="start-button">
+            Start Game
+          </button>
+        ) : (
+          <button onClick={handleGameStart} className="start-button">
+            Start Game
+          </button>
+        )}
+      </div>
     </div>
   );
 };
