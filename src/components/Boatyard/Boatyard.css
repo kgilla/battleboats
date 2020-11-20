@@ -1,11 +1,19 @@
 .boatyard {
   position: relative;
   place-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 3rem;
+  border: 0.2rem solid #222;
+  border-radius: 0.5rem;
+  background: #444;
+  box-shadow: 0 8px 6px -6px black;
 }
 
 .boatyard-title {
   margin-bottom: 1rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #fff;
   text-align: center;
@@ -14,10 +22,11 @@
 .floating-tip {
   position: absolute;
   padding: 1rem;
-  border: 0.1rem solid #aaa;
+  border: 0.2rem solid #222;
   border-radius: 2rem;
   color: #fff;
   background-color: #333;
+  box-shadow: 0 8px 6px -6px black;
 }
 
 #tip1 {
@@ -27,7 +36,7 @@
 
 #tip2 {
   bottom: 10px;
-  right: -80px;
+  right: -100px;
 }
 
 .dock {
@@ -39,7 +48,7 @@
   padding: 1rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
-  background-color: #1e88e5;
+  background-color: #2874a6;
 }
 
 .boat-name {
@@ -53,12 +62,13 @@
   height: 40px;
   width: 40px;
   border: 0.1rem solid #333;
-  background-color: #666;
+  background-color: #388e3c;
 }
 
 .boat-vertical,
 .boat-horizontal {
   display: flex;
+  animation: small-grow 1s ease-in-out infinite;
 }
 
 .boat-horizontal {
@@ -72,4 +82,18 @@
 .boat-vertical:hover,
 .boat-horizontal:hover {
   cursor: grab;
+}
+
+@keyframes small-grow {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

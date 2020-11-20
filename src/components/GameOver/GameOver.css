@@ -16,17 +16,17 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  border: 0.4rem solid #222;
+  border: 0.2rem solid #222;
   border-radius: 0.5rem;
   z-index: 3;
 }
 
 .win-box {
-  background-color: #145a32;
+  background-color: #1b5e20;
 }
 
 .lose-box {
-  background-color: #641e16;
+  background-color: #4a148c;
 }
 
 .gameover-heading,
@@ -48,10 +48,11 @@
 .gameover-button {
   padding: 0.5rem;
   margin-top: 1rem;
-  border: 0.1rem solid #444;
+  border: 0.2rem solid #222;
   border-radius: 0.5rem;
-  background-color: #222;
+  background-color: #333;
   color: #fff;
+  font-family: inherit;
   font-size: 1.2rem;
   transition: all 0.2s ease-in-out;
 }
@@ -59,5 +60,5 @@
 .gameover-button:hover {
   cursor: pointer;
   filter: brightness(90%);
-  border: 0.1rem solid #fff;
+  border: 0.2rem solid #fff;
 }

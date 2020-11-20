@@ -8,6 +8,7 @@
 .gameboard {
   border: 0.2rem solid #222;
   box-sizing: content-box;
+  box-shadow: 0 8px 6px -6px black;
 }
 
 .gameboard-col-info {
@@ -74,12 +75,12 @@
 
 .board-square,
 .your-square {
-  background-color: #388e3c;
+  background-color: #888;
   transition: all 0.2s ease-in-out;
 }
 
 .your-square:hover {
-  background-color: #7b1fa2;
+  filter: brightness(50%);
   cursor: crosshair;
 }
 
@@ -102,7 +103,7 @@
 }
 
 .your-ship {
-  background-color: #666;
+  background-color: #388e3c;
 }
 
 .your-info,
@@ -114,17 +115,18 @@
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   line-height: 1.5;
   color: #fff;
+  box-shadow: 0 8px 6px -6px black;
 }
 
 .your-info {
-  background-color: #145a32;
+  background-color: #1b5e20;
 }
 
 .pc-info {
-  background-color: #641e16;
+  background-color: #4a148c;
 }
 
 .active,
@@ -144,7 +146,7 @@
   }
   50% {
     background: #444;
-    border: 0.1rem solid #aaa;
+    border: 0.1rem solid #888;
   }
   100% {
     background: transparent;

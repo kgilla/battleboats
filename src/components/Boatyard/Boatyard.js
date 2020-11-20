@@ -14,13 +14,13 @@ const Boatyard = (props) => {
 
   const handleOffsetX = (e) => {
     let offset = e.nativeEvent.offsetX - 40;
-    offset = Math.floor(offset / 40) + 1;
+    offset = Math.ceil(offset / 40);
     props.sendOffset(offset);
   };
 
   const handleOffsetY = (e) => {
     let offset = e.nativeEvent.offsetY - 40;
-    offset = Math.floor(offset / 40) + 1;
+    offset = Math.ceil(offset / 40);
     props.sendOffset(offset);
   };
 
@@ -36,7 +36,7 @@ const Boatyard = (props) => {
     <div className="boatyard">
       <h1 className="boatyard-title">Place Your Boats</h1>
       <p className="floating-tip" id="tip1">
-        Try clicking me!
+        Click to rotate!
       </p>
       <div className="dock" onClick={handleClick}>
         <div
@@ -54,7 +54,7 @@ const Boatyard = (props) => {
         <h2 className="boat-name">{props.boats[0].name}</h2>
       ) : null}
       <p className="floating-tip" id="tip2">
-        Try dragging me!
+        Drag and drop boats!
       </p>
     </div>
   );

@@ -19,27 +19,46 @@
 
 .start-button {
   padding: 1rem;
-  border: 0.1rem solid #222;
+  border: 0.2rem solid #222;
   border-radius: 0.5rem;
-  background-color: #43a047;
+  background-color: #388e3c;
   color: #fff;
   font-size: 1.2rem;
   font-family: inherit;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 8px 6px -6px black;
+  animation: grow 1s ease-in-out infinite;
 }
 
 .start-button:disabled {
   color: #aaa;
   filter: brightness(50%);
+  pointer-events: none;
+  animation: none;
+}
+
+.start-button:hover {
+  filter: brightness(90%);
+  border: 0.2rem solid #fff;
+  cursor: pointer;
 }
 
 .setup-button {
   padding: 1rem;
-  border: 0.1rem solid #222;
+  border: 0.2rem solid #222;
   border-radius: 0.5rem;
-  background-color: #1976d2;
+  background-color: #512da8;
   color: #fff;
   font-size: 1.2rem;
   font-family: inherit;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 8px 6px -6px black;
+}
+
+.setup-button:hover {
+  filter: brightness(90%);
+  border: 0.2rem solid #fff;
+  cursor: pointer;
 }
 
 .setup-gameboard {
@@ -49,4 +68,16 @@
 #tip3 {
   top: 10px;
   right: -100px;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
