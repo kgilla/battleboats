@@ -15,9 +15,6 @@ class Player {
     }
   };
 
-  // All Computer Opponent Methods
-
-  // Constructs array for all 100 potentail choices on gameboard
   makeChoiceArray = () => {
     let array = [];
     for (let x = 0; x < 10; x++) {
@@ -28,7 +25,6 @@ class Player {
     return array;
   };
 
-  // If player is computer makes move based on history
   compMakeMove = () => {
     if (this.lastMove) {
       let data = this.assessLastMove();
@@ -40,7 +36,6 @@ class Player {
     }
   };
 
-  // Makes random move because no history
   makeRandomMove = () => {
     let data = this.makeRandomChoice();
     let result = this.makeMoveOnBoard(data.coords);
@@ -48,14 +43,27 @@ class Player {
     return result;
   };
 
-  // Generates random choice
   makeRandomChoice = () => {
     let choice = Math.floor(Math.random() * this.choicesLeft.length);
     let coords = [this.choicesLeft[choice].x, this.choicesLeft[choice].y];
-    return { coords };
+    if (this.checkChoiceHasSpace(coords)) {
+      return { coords };
+    } else {
+      console.log(this.choicesLeft);
+      this.choicesLeft = this.choicesLeft.filter(
+        (c) => c !== this.choicesLeft[choice]
+      );
+      console.log(this.choicesLeft);
+      return this.makeRandomChoice();
+    }
   };
 
-  // Removes move from possible choices and uses gameboard method, return result
+  checkChoiceHasSpace = (coords) => {
+    let nextMoves = this.makeNextMoves(coords);
+    let results = this.filterNextMoves(nextMoves);
+    return results.length > 0 ? true : false;
+  };
+
   makeMoveOnBoard = (move) => {
     let moveToRemove = this.choicesLeft.find(
       (m) => m.x === move[0] && m.y === move[1]
@@ -66,9 +74,8 @@ class Player {
     return this.enemyGameBoard.receiveAttack(move);
   };
 
-  // Logs all appropriate lastMove data to be assessed next turn
   logMove = (data, results) => {
-    let { coords, direction, prevMoves } = data;
+    let { coords, direction, prevMoves, continueAttack } = data;
     let { isHit, isSunk, boat } = results;
     this.lastMove = {
       coords,
@@ -77,6 +84,7 @@ class Player {
       direction,
       prevMoves,
       boat,
+      continueAttack,
     };
     if (this.lastMove.isHit && !this.lastMove.isSunk) {
       this.hits.push(this.lastMove);
@@ -86,32 +94,28 @@ class Player {
     }
   };
 
-  // assesses lastMove data and directs to the appropriate handler
   assessLastMove = () => {
     if (this.lastMove.isHit && !this.lastMove.isSunk) {
       if (this.lastMove.direction) {
-        // last move was a hit and direction
         return this.continueAttack();
       } else {
-        // last move was a hit and no direction
         return this.plotNextMove();
       }
+    } else if (this.lastMove.continueAttack && !this.lastMove.isSunk) {
+      return this.continueReverse(this.lastMove);
     } else if (this.lastMove.prevMoves && !this.lastMove.isSunk) {
-      console.log(this.lastMove);
-      // last move was a miss but prev move was a hit and has other options
       return this.determineAndFilter(this.lastMove.prevMoves);
     } else if (this.hits.length > 0) {
       let data = this.useHitsArray();
       return data;
     } else {
-      // last move was a hit and ship is sunk or last move was a miss and no prev move hit
       return this.makeRandomChoice();
     }
   };
 
   useHitsArray = () => {
     this.lastMove = this.hits[0];
-    let nextMoves = this.makeNextMoves();
+    let nextMoves = this.makeNextMoves(this.lastMove.coords);
     let filteredMoves = this.filterNextMoves(nextMoves);
     if (filteredMoves.length > 0) {
       this.filterHits();
@@ -145,43 +149,55 @@ class Player {
   };
 
   continueAttack = () => {
-    let move = this.determineNextAttack();
+    let move = this.determineNextAttack(this.lastMove.coords);
     if (this.verifyMoveIsLegal(move)) {
       return move;
-    } else if (this.hits.length > 0) {
-      return this.useHitsArray();
     } else {
-      return this.makeRandomChoice();
+      let reverse = this.continueReverse(move);
+      if (this.verifyMoveIsLegal(reverse)) {
+        return reverse;
+      } else if (this.hits.length > 0) {
+        return this.useHitsArray();
+      } else {
+        return this.makeRandomChoice();
+      }
     }
   };
 
-  determineNextAttack = () => {
-    let c = this.lastMove.coords;
-    if (this.lastMove.direction === "north") {
-      return {
-        coords: [c[0], c[1] - 1],
-        direction: this.lastMove.direction,
-        prevMoves: this.lastMove.prevMoves,
-      };
-    } else if (this.lastMove.direction === "east") {
-      return {
-        coords: [c[0] + 1, c[1]],
-        direction: this.lastMove.direction,
-        prevMoves: this.lastMove.prevMoves,
-      };
-    } else if (this.lastMove.direction === "south") {
-      return {
-        coords: [c[0], c[1] + 1],
-        direction: this.lastMove.direction,
-        prevMoves: this.lastMove.prevMoves,
-      };
+  continueReverse = (move) => {
+    let newDirection = this.reverseDirection(move.direction);
+    return move.prevMoves.find((m) => m.direction === newDirection);
+  };
+
+  reverseDirection = (direction) => {
+    if (direction === "north") {
+      return "south";
+    } else if (direction === "south") {
+      return "north";
+    } else if (direction === "east") {
+      return "west";
     } else {
-      return {
-        coords: [c[0] - 1, c[1]],
-        direction: this.lastMove.direction,
-        prevMoves: this.lastMove.prevMoves,
-      };
+      return "east";
     }
+  };
+
+  determineNextAttack = (c) => {
+    let coords = "";
+    if (this.lastMove.direction === "north") {
+      coords = [c[0], c[1] - 1];
+    } else if (this.lastMove.direction === "east") {
+      coords = [c[0] + 1, c[1]];
+    } else if (this.lastMove.direction === "south") {
+      coords = [c[0], c[1] + 1];
+    } else {
+      coords = [c[0] - 1, c[1]];
+    }
+    return {
+      coords,
+      direction: this.lastMove.direction,
+      prevMoves: this.lastMove.prevMoves,
+      continueAttack: true,
+    };
   };
 
   verifyMoveIsLegal = (move) => {
@@ -190,22 +206,20 @@ class Player {
     );
   };
 
-  // continue next move, check if move is legal
   plotNextMove = () => {
-    let nextMoves = this.makeNextMoves();
+    let nextMoves = this.makeNextMoves(this.lastMove.coords);
     let filteredMoves = this.filterNextMoves(nextMoves);
     return filteredMoves.length > 0
       ? this.determineAndFilter(filteredMoves)
       : this.makeRandomChoice();
   };
 
-  makeNextMoves = () => {
-    let c = this.lastMove.coords;
+  makeNextMoves = (move) => {
     return [
-      { coords: [c[0], c[1] - 1], direction: "north" },
-      { coords: [c[0] - 1, c[1]], direction: "west" },
-      { coords: [c[0], c[1] + 1], direction: "south" },
-      { coords: [c[0] + 1, c[1]], direction: "east" },
+      { coords: [move[0], move[1] - 1], direction: "north" },
+      { coords: [move[0] - 1, move[1]], direction: "west" },
+      { coords: [move[0], move[1] + 1], direction: "south" },
+      { coords: [move[0] + 1, move[1]], direction: "east" },
     ];
   };
 
