@@ -16,7 +16,6 @@ const Board = (props) => {
 
   const handleMove = (e) => {
     let newCoords = dataToCoords(e);
-    console.log(newCoords);
     props.handleInput(newCoords);
   };
 

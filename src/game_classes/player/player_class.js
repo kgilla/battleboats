@@ -97,6 +97,7 @@ class Player {
         return this.plotNextMove();
       }
     } else if (this.lastMove.prevMoves && !this.lastMove.isSunk) {
+      console.log(this.lastMove);
       // last move was a miss but prev move was a hit and has other options
       return this.determineAndFilter(this.lastMove.prevMoves);
     } else if (this.hits.length > 0) {

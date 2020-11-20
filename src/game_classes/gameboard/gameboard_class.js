@@ -5,6 +5,7 @@ class Gameboard {
     this.board = board ? board : this.create();
     this.receiveAttack = (coords) => this.checkSpace(coords);
     this.shipsLeft = 10;
+    this.random = false;
   }
 
   checkSpace = (coords) => {
@@ -75,6 +76,7 @@ class Gameboard {
 
   // Loop for filling gameboard with boats in random spaces
   generateRandomBoats = () => {
+    this.random = true;
     this.boats.forEach((boat) => {
       for (let i = 0; i < boat.quantity; i++) {
         let newBoat = new Boat(boat.name, boat.size);
@@ -117,9 +119,12 @@ class Gameboard {
 
   // Loop for attemping placement
   attemptPlacingBoat = (size, space, orientation) => {
-    let boatData = this.makeTempCoordArray(size, space, orientation);
+    let boatData = this.makeBoatData(size, space, orientation);
+    let check = this.random
+      ? this.makeRandomBoatData(size, space, orientation)
+      : boatData;
     if (!this.anyCoordsOutside(boatData)) {
-      let spotFilled = this.checkCoordArray(boatData);
+      let spotFilled = this.checkCoordArray(check);
       return spotFilled ? false : boatData;
     } else {
       return false;
@@ -127,7 +132,7 @@ class Gameboard {
   };
 
   // Generates tests array of coordinates for where the boat will be placed
-  makeTempCoordArray = (size, space, orientation) => {
+  makeBoatData = (size, space, orientation) => {
     let data = [];
     if (orientation === 1) {
       for (let y = space[1]; y < space[1] + size; y++) {
@@ -136,6 +141,20 @@ class Gameboard {
     } else {
       for (let x = space[0]; x < space[0] + size; x++) {
         data.push([x, space[1]]);
+      }
+    }
+    return data;
+  };
+
+  makeRandomBoatData = (size, space, orientation) => {
+    let data = [];
+    if (orientation === 1) {
+      for (let y = space[1] - 1; y < space[1] + (size + 1); y++) {
+        if (this.coordExists([space[0], y])) data.push([space[0], y]);
+      }
+    } else {
+      for (let x = space[0] - 1; x < space[0] + (size + 1); x++) {
+        if (this.coordExists([x, space[1]])) data.push([x, space[1]]);
       }
     }
     return data;
