@@ -2,6 +2,7 @@ class Player {
   constructor(enemyGameBoard) {
     this.enemyGameBoard = enemyGameBoard;
     this.choicesLeft = this.makeChoiceArray();
+    this.smartChoices = this.makeSmartChoices();
     this.lastMove = {};
     this.hits = [];
   }
@@ -23,6 +24,27 @@ class Player {
       }
     }
     return array;
+  };
+
+  makeSmartChoiceArray = () => {
+    let array = [0];
+    let i = 0;
+    while (i < 100) {
+      for (let x = 0; x < 4; x++) {
+        i += 2;
+        array.push(i);
+      }
+      i % 2 === 0 ? (i += 3) : (i += 1);
+      array.push(i);
+    }
+    return array;
+  };
+
+  makeSmartChoices = () => {
+    let array = this.makeSmartChoiceArray();
+    let newArray = [];
+    array.forEach((i) => newArray.push(this.choicesLeft[i]));
+    console.log(newArray);
   };
 
   compMakeMove = () => {

@@ -13,19 +13,25 @@
   font-size: 1.4rem;
 }
 
+.nav-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
 .nav-button {
   padding: 0.5rem;
-  border: 0.1rem solid #222;
+  border: 0.2rem solid #222;
   border-radius: 0.5rem;
-  background-color: #888;
-  color: #000;
+  background-color: #4a148c;
+  color: #fff;
   font-size: 1.2rem;
   font-family: inherit;
   transition: all 0.2s ease-in-out;
 }
 
 .nav-button:hover {
-  background-color: #4a148c;
-  color: #fff;
   cursor: pointer;
+  filter: brightness(90%);
+  border: 0.2rem solid #fff;
 }

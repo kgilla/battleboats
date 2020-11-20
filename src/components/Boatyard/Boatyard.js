@@ -39,16 +39,20 @@ const Boatyard = (props) => {
         Click to rotate!
       </p>
       <div className="dock" onClick={handleClick}>
-        <div
-          className={
-            props.orientation === 0 ? "boat-horizontal" : "boat-vertical"
-          }
-          draggable
-          onDragStart={handleDragStart}
-          onClick={handleClick}
-        >
-          {props.boats.length > 0 ? createBoat() : <h2>All Set!</h2>}
-        </div>
+        {props.boats.length > 0 ? (
+          <div
+            className={
+              props.orientation === 0 ? "boat-horizontal" : "boat-vertical"
+            }
+            draggable
+            onDragStart={handleDragStart}
+            onClick={handleClick}
+          >
+            {props.boats.length > 0 ? createBoat() : null}
+          </div>
+        ) : (
+          <h2 className="dock-text">All Set!</h2>
+        )}
       </div>
       {props.boats.length > 0 ? (
         <h2 className="boat-name">{props.boats[0].name}</h2>

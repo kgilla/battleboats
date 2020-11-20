@@ -126,9 +126,6 @@ const Setup = (props) => {
         <button className="setup-button" onClick={handleReset}>
           Reset Board
         </button>
-        <button className="setup-button" onClick={handleRandom}>
-          How To?
-        </button>
         {boats.length > 0 ? (
           <button disabled className="start-button">
             Start Game

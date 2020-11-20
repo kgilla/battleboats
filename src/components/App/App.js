@@ -102,7 +102,7 @@ function App() {
     <div className="App">
       <Navbar newGame={handleNewGame} />
       {isGameOver ? (
-        <GameOver data={winData} handleNewGame={startGame} />
+        <GameOver data={winData} handleNewGame={handleNewGame} />
       ) : null}
       {gameStarted ? (
         <div className="board-container">
