@@ -44,6 +44,7 @@ class Player {
     let array = this.makeSmartChoiceArray();
     let newArray = [];
     array.forEach((i) => newArray.push(this.choicesLeft[i]));
+    newArray = newArray.slice(0, 50);
     return newArray;
   };
 
@@ -66,33 +67,21 @@ class Player {
   };
 
   makeRandomChoice = () => {
-    let choice = Math.floor(Math.random() * this.choicesLeft.length);
-    let coords = [this.choicesLeft[choice].x, this.choicesLeft[choice].y];
-    if (this.checkChoiceHasSpace(coords)) {
-      return { coords };
-    } else {
-      console.log(this.choicesLeft);
-      this.choicesLeft = this.choicesLeft.filter(
-        (c) => c !== this.choicesLeft[choice]
-      );
-      console.log(this.choicesLeft);
-      return this.makeRandomChoice();
-    }
+    let choice = Math.floor(Math.random() * this.smartChoices.length);
+    let coords = [this.smartChoices[choice].x, this.smartChoices[choice].y];
+    return { coords };
   };
 
-  checkChoiceHasSpace = (coords) => {
-    let nextMoves = this.makeNextMoves(coords);
-    let results = this.filterNextMoves(nextMoves);
-    return results.length > 0 ? true : false;
+  filterChoices = (coords, choiceArray) => {
+    let array = choiceArray.slice();
+    let choice = array.find((c) => c.x === coords[0] && c.y === coords[1]);
+    array = array.filter((c) => c !== choice);
+    return array;
   };
 
   makeMoveOnBoard = (move) => {
-    let moveToRemove = this.choicesLeft.find(
-      (m) => m.x === move[0] && m.y === move[1]
-    );
-    let newChoices = this.choicesLeft.slice();
-    newChoices = newChoices.filter((m) => m !== moveToRemove);
-    this.choicesLeft = newChoices;
+    this.choicesLeft = this.filterChoices(move, this.choicesLeft);
+    this.smartChoices = this.filterChoices(move, this.smartChoices);
     return this.enemyGameBoard.receiveAttack(move);
   };
 
@@ -124,7 +113,7 @@ class Player {
         return this.plotNextMove();
       }
     } else if (this.lastMove.continueAttack && !this.lastMove.isSunk) {
-      return this.continueReverse(this.lastMove);
+      return this.attemptReverse(this.lastMove);
     } else if (this.lastMove.prevMoves && !this.lastMove.isSunk) {
       return this.determineAndFilter(this.lastMove.prevMoves);
     } else if (this.hits.length > 0) {
@@ -145,7 +134,7 @@ class Player {
     } else {
       this.filterHits();
       if (this.hits.length > 0) {
-        this.useHitsArray();
+        return this.useHitsArray();
       } else {
         return this.makeRandomChoice();
       }
@@ -175,20 +164,20 @@ class Player {
     if (this.verifyMoveIsLegal(move)) {
       return move;
     } else {
-      let reverse = this.continueReverse(move);
-      if (this.verifyMoveIsLegal(reverse)) {
-        return reverse;
-      } else if (this.hits.length > 0) {
-        return this.useHitsArray();
-      } else {
-        return this.makeRandomChoice();
-      }
+      return this.attemptReverse(this.lastMove);
     }
   };
 
-  continueReverse = (move) => {
+  attemptReverse = (move) => {
     let newDirection = this.reverseDirection(move.direction);
-    return move.prevMoves.find((m) => m.direction === newDirection);
+    let newMove = move.prevMoves.find((m) => m.direction === newDirection);
+    if (this.verifyMoveIsLegal(newMove)) {
+      return newMove;
+    } else if (this.hits.length > 0) {
+      return this.useHitsArray();
+    } else {
+      return this.makeRandomChoice();
+    }
   };
 
   reverseDirection = (direction) => {
@@ -223,9 +212,14 @@ class Player {
   };
 
   verifyMoveIsLegal = (move) => {
-    return this.choicesLeft.some(
-      (coord) => coord.x === move.coords[0] && coord.y === move.coords[1]
-    );
+    if (move) {
+      let result = this.choicesLeft.some(
+        (coord) => coord.x === move.coords[0] && coord.y === move.coords[1]
+      );
+      return result;
+    } else {
+      return false;
+    }
   };
 
   plotNextMove = () => {
