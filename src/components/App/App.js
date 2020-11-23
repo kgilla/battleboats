@@ -96,6 +96,7 @@ function App() {
 
   const handleNewGame = () => {
     setGameStarted(false);
+    setIsGameOver(false);
   };
 
   return (

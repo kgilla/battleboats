@@ -44,7 +44,7 @@ class Player {
     let array = this.makeSmartChoiceArray();
     let newArray = [];
     array.forEach((i) => newArray.push(this.choicesLeft[i]));
-    console.log(newArray);
+    return newArray;
   };
 
   compMakeMove = () => {
