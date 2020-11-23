@@ -170,7 +170,9 @@ class Player {
 
   attemptReverse = (move) => {
     let newDirection = this.reverseDirection(move.direction);
-    let newMove = move.prevMoves.find((m) => m.direction === newDirection);
+    let newMove = move.prevMoves
+      ? move.prevMoves.find((m) => m.direction === newDirection)
+      : "";
     if (this.verifyMoveIsLegal(newMove)) {
       return newMove;
     } else if (this.hits.length > 0) {
@@ -191,6 +193,8 @@ class Player {
       return "east";
     }
   };
+
+  verifyReverse = (move) => {};
 
   determineNextAttack = (c) => {
     let coords = "";

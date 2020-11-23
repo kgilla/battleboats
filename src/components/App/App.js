@@ -8,6 +8,7 @@ import Navbar from "../Navbar";
 import Setup from "../Setup";
 import GameOver from "../GameOver";
 import TurnIndicator from "../TurnIndicator";
+import Rules from "../Rules";
 
 function App() {
   const [game, setGame] = useState("");
@@ -19,6 +20,7 @@ function App() {
   const [boardTwo, setBoardTwo] = useState("");
   const [boardTwoData, setBoardTwoData] = useState("");
   const [userTurn, setUserTurn] = useState(true);
+  const [showRules, setShowRules] = useState(false);
 
   const playerWin = {
     win: true,
@@ -99,9 +101,14 @@ function App() {
     setIsGameOver(false);
   };
 
+  const toggleRules = () => {
+    showRules ? setShowRules(false) : setShowRules(true);
+  };
+
   return (
     <div className="App">
-      <Navbar newGame={handleNewGame} />
+      <Navbar newGame={handleNewGame} toggleRules={toggleRules} />
+      {showRules ? <Rules toggleRules={toggleRules} /> : null}
       {isGameOver ? (
         <GameOver data={winData} handleNewGame={handleNewGame} />
       ) : null}
@@ -114,7 +121,6 @@ function App() {
             active={!userTurn ? true : false}
             showInfo={true}
           />
-          <TurnIndicator direction={userTurn ? "right" : "left"} />
           <Board
             board={boardOne}
             title="Enemy Boats"

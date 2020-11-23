@@ -2,8 +2,8 @@ import React from "react";
 import "./Navbar.css";
 
 const Navbar = (props) => {
-  const handleClick = () => {
-    props.newGame();
+  const handleClick = (e) => {
+    e.target.innerText === "New Game" ? props.newGame() : props.toggleRules();
   };
 
   return (
@@ -12,7 +12,9 @@ const Navbar = (props) => {
       <ul className="nav-links">
         <li>
           {" "}
-          <button className="nav-button">Game Rules</button>
+          <button className="nav-button" onClick={handleClick}>
+            Game Rules
+          </button>
         </li>
         <li>
           {" "}

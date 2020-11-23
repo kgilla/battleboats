@@ -43,8 +43,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 240px;
-  width: 240px;
+  height: calc(6 * var(--square));
+  width: calc(6 * var(--square));
   padding: 1rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
@@ -63,8 +63,8 @@
 }
 
 .boat {
-  height: 40px;
-  width: 40px;
+  height: var(--square);
+  width: var(--square);
   border: 0.1rem solid #333;
   background-color: #388e3c;
 }
