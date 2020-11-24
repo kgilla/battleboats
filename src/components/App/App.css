@@ -23,6 +23,7 @@ body {
 
 .board-container {
   display: grid;
+  margin-top: 1rem;
 }
 
 @media (max-width: 575.9px) {
@@ -53,7 +54,7 @@ body {
 
   .board-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 10rem 1fr;
   }
 }
 
@@ -71,7 +72,7 @@ body {
 @media (min-width: 992px) {
   .board-container {
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 10rem 1fr;
   }
 }
 @media (min-width: 1400px) {
@@ -80,3 +81,10 @@ body {
     --game-size: 550px;
   }
 }
+/* 
+@media (min-width: 2000px) {
+  :root {
+    --square: 60px;
+    --game-size: 660px;
+  }
+} */

@@ -21,6 +21,7 @@ function App() {
   const [boardTwoData, setBoardTwoData] = useState("");
   const [userTurn, setUserTurn] = useState(true);
   const [showRules, setShowRules] = useState(false);
+  const [showTips, setShowTips] = useState(true);
 
   const playerWin = {
     win: true,
@@ -105,6 +106,10 @@ function App() {
     showRules ? setShowRules(false) : setShowRules(true);
   };
 
+  const toggleShowTips = () => {
+    showTips ? setShowTips(false) : setShowTips(true);
+  };
+
   return (
     <div className="App">
       <Navbar newGame={handleNewGame} toggleRules={toggleRules} />
@@ -121,6 +126,7 @@ function App() {
             active={!userTurn ? true : false}
             showInfo={true}
           />
+          <TurnIndicator direction={userTurn ? "right" : "left"} />
           <Board
             board={boardOne}
             title="Enemy Boats"
@@ -131,7 +137,11 @@ function App() {
           />
         </div>
       ) : (
-        <Setup sendUserBoard={handleUserBoard} />
+        <Setup
+          showTips={showTips}
+          sendUserBoard={handleUserBoard}
+          toggleShowTips={toggleShowTips}
+        />
       )}
     </div>
   );

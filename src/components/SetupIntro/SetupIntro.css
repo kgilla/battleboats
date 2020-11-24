@@ -1,0 +1,14 @@
+.setup-intro-container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 0.2rem solid #222;
+  border-radius: 0.5rem;
+  background-color: #333;
+}

@@ -3,6 +3,8 @@ import "./Setup.css";
 
 import Board from "../Gameboard";
 import Boatyard from "../Boatyard";
+import SetupIntro from "../SetupIntro";
+
 import Gameboard from "../../game_classes/gameboard/gameboard_class";
 import Boat from "../../game_classes/boat/boat_class";
 
@@ -97,8 +99,13 @@ const Setup = (props) => {
     }
   };
 
+  const handleIntroChange = () => {
+    props.toggleShowTips();
+  };
+
   return (
     <div className="setup-container">
+      {props.showTips ? <SetupIntro introChange={handleIntroChange} /> : null}
       {gameboard ? (
         <div className="setup-main-container">
           <Boatyard
@@ -108,9 +115,6 @@ const Setup = (props) => {
             sendOffset={handleOffset}
           />
           <div className="setup-gameboard">
-            <p className="floating-tip" id="tip3">
-              Click on placed boats to remove them!
-            </p>
             <Board
               board={board}
               sendCoord={handleCoord}
@@ -125,6 +129,9 @@ const Setup = (props) => {
         </button>
         <button className="setup-button" onClick={handleReset}>
           Reset Board
+        </button>
+        <button className="setup-button" onClick={handleIntroChange}>
+          How To
         </button>
         {boats.length > 0 ? (
           <button disabled className="start-button">

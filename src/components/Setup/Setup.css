@@ -12,8 +12,7 @@
 }
 
 .setup-button-box {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
 }
 
 .start-button {
@@ -22,7 +21,7 @@
   border-radius: 0.5rem;
   background-color: #388e3c;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: inherit;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 8px 6px -6px black;
@@ -43,12 +42,12 @@
 }
 
 .setup-button {
-  padding: 1rem;
+  padding: 0.5rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
   background-color: #512da8;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: inherit;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 8px 6px -6px black;
@@ -65,7 +64,7 @@
 }
 
 #tip3 {
-  top: 10px;
+  bottom: -30px;
   right: -100px;
 }
 
@@ -85,15 +84,28 @@
   .setup-main-container {
     grid-template-columns: 1fr;
   }
+
+  .setup-button-box {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
 }
 
 @media (min-width: 576px) {
   .setup-main-container {
     grid-template-columns: 1fr;
   }
+  .setup-button-box {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
 }
 
 @media (min-width: 768px) {
+  .setup-button-box {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
 }
 
 @media (min-width: 992px) {

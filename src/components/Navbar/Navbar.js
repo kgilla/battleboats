@@ -7,23 +7,20 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="main-nav">
-      <h1 className="nav-title">BattleBoats!</h1>
-      <ul className="nav-links">
-        <li>
+    <div className="nav-container">
+      <nav className="main-nav">
+        <h1 className="nav-title">BattleBoats!</h1>
+        <ul className="nav-links">
           {" "}
           <button className="nav-button" onClick={handleClick}>
-            Game Rules
-          </button>
-        </li>
-        <li>
-          {" "}
+            Rules
+          </button>{" "}
           <button className="nav-button" onClick={handleClick}>
             New Game
           </button>
-        </li>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </div>
   );
 };
 
