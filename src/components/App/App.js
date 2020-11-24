@@ -72,8 +72,10 @@ function App() {
         takeCompTurn();
       }, 1000);
     } else {
-      changeTurn();
-      setUserTurn(true);
+      setTimeout(() => {
+        changeTurn();
+        setUserTurn(true);
+      }, 1000);
     }
   };
 

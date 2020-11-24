@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
 html {
   font-size: 16px;
@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: "Fredoka One", cursive;
+  font-family: "Permanent Marker", cursive;
   min-height: 100vh;
   max-width: 100vw;
   background-image: url("../../Images/pink\ dust.png");
