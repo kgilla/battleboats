@@ -1,14 +1,19 @@
 .gameboard-container {
+  place-self: center;
   display: grid;
   grid-template-columns: var(--square) 1fr;
   grid-template-rows: var(--square) 1fr;
   box-sizing: border-box;
+  border: 0.3rem solid #222;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 6px -6px black;
+  background-color: #444;
 }
 
 .gameboard {
-  border: 0.2rem solid #222;
   box-sizing: content-box;
-  box-shadow: 0 8px 6px -6px black;
+  border-bottom: 0.4rem solid #444;
+  border-right: 0.4rem solid #444;
 }
 
 .gameboard-col-info {
@@ -81,25 +86,25 @@
 
 .your-square:hover {
   filter: brightness(50%);
-  cursor: crosshair;
+  cursor: pointer;
 }
 
 .board-miss {
   background-color: #1976d2;
-  font-size: 2.5rem;
+  font-size: calc(var(--square));
 }
 
 .board-hit {
   background-color: #d32f2f;
-  border: 0.4rem solid #222;
-  font-size: 2rem;
+  border: calc(var(--square) / 6) solid #222;
+  font-size: calc(var(--square) * 0.8);
 }
 
 .is-sunk {
   background-color: #555;
-  border: 0.4rem solid #222;
+  border: calc(var(--square) / 6) solid #222;
   color: #222;
-  font-size: 2rem;
+  font-size: calc(var(--square) * 0.9);
 }
 
 .your-ship {
@@ -108,9 +113,8 @@
 
 .your-info,
 .pc-info {
-  width: calc(100% - var(--square));
+  width: 100%;
   margin: 0.5rem 0;
-  margin-left: var(--square);
   padding: 0.5rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
@@ -153,14 +157,14 @@
   }
 }
 
-@media (max-width: 575.9px) {
+@media (max-width: 359.9px) {
   .gameboard {
     height: 250px;
     width: 250px;
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 360px) {
   .gameboard {
     height: 300px;
     width: 300px;

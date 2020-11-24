@@ -1,21 +1,27 @@
 .setup-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
-  padding: 1rem;
+  gap: 2rem;
+  margin: 2rem 0;
 }
 
 .setup-main-container {
-  display: grid;
-  align-content: center;
-  justify-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .setup-button-box {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   display: grid;
+  justify-items: center;
 }
 
 .start-button {
+  width: 100%;
+  max-width: 20rem;
   padding: 1rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
@@ -42,6 +48,8 @@
 }
 
 .setup-button {
+  width: 100%;
+  max-width: 20rem;
   padding: 0.5rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;
@@ -63,11 +71,6 @@
   position: relative;
 }
 
-#tip3 {
-  bottom: -30px;
-  right: -100px;
-}
-
 @keyframes grow {
   0% {
     transform: scale(1);
@@ -82,36 +85,39 @@
 
 @media (max-width: 575.9px) {
   .setup-main-container {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 
   .setup-button-box {
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 }
 
 @media (min-width: 576px) {
   .setup-main-container {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
-  .setup-button-box {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-}
 
-@media (min-width: 768px) {
   .setup-button-box {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .setup-main-container {
-    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
+  }
+
+  .setup-button-box {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
   }
 }
+
+@media (min-width: 992px) {
+}
+
 @media (min-width: 1200px) {
 }

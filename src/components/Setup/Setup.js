@@ -100,12 +100,12 @@ const Setup = (props) => {
   };
 
   const handleIntroChange = () => {
-    props.toggleShowTips();
+    props.toggleShowIntro();
   };
 
   return (
     <div className="setup-container">
-      {props.showTips ? <SetupIntro introChange={handleIntroChange} /> : null}
+      {props.showIntro ? <SetupIntro introChange={handleIntroChange} /> : null}
       {gameboard ? (
         <div className="setup-main-container">
           <Boatyard
@@ -113,6 +113,7 @@ const Setup = (props) => {
             orientation={orientation}
             sendBoatOrientation={determineOrientation}
             sendOffset={handleOffset}
+            windowWidth={props.windowWidth}
           />
           <div className="setup-gameboard">
             <Board

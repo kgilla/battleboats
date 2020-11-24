@@ -19,26 +19,6 @@
   text-align: center;
 }
 
-.floating-tip {
-  position: absolute;
-  padding: 1rem;
-  border: 0.2rem solid #222;
-  border-radius: 2rem;
-  color: #fff;
-  background-color: #333;
-  box-shadow: 0 8px 6px -6px black;
-}
-
-#tip1 {
-  top: 50px;
-  left: -80px;
-}
-
-#tip2 {
-  bottom: 10px;
-  right: -100px;
-}
-
 .dock {
   display: flex;
   justify-content: center;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 
@@ -7,8 +7,8 @@ import Board from "../Gameboard";
 import Navbar from "../Navbar";
 import Setup from "../Setup";
 import GameOver from "../GameOver";
-import TurnIndicator from "../TurnIndicator";
 import Rules from "../Rules";
+import TurnChange from "../TurnChange";
 
 function App() {
   const [game, setGame] = useState("");
@@ -21,7 +21,16 @@ function App() {
   const [boardTwoData, setBoardTwoData] = useState("");
   const [userTurn, setUserTurn] = useState(true);
   const [showRules, setShowRules] = useState(false);
-  const [showTips, setShowTips] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showTurn, setShowTurn] = useState(false);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleWindowResize);
+  }, []);
 
   const playerWin = {
     win: true,
@@ -44,6 +53,7 @@ function App() {
           handleGameOver(playerWin);
         } else if (!user.isHit) {
           setUserTurn(false);
+          changeTurn();
           setTimeout(() => {
             takeCompTurn();
           }, 1000);
@@ -62,8 +72,16 @@ function App() {
         takeCompTurn();
       }, 1000);
     } else {
+      changeTurn();
       setUserTurn(true);
     }
+  };
+
+  const changeTurn = () => {
+    setShowTurn(true);
+    setTimeout(() => {
+      setShowTurn(false);
+    }, 1000);
   };
 
   const updateBoard = (player) => {
@@ -91,6 +109,7 @@ function App() {
     setUserTurn(true);
     setGameStarted(true);
     setIsGameOver(false);
+    changeTurn();
   };
 
   const handleUserBoard = (board) => {
@@ -106,13 +125,18 @@ function App() {
     showRules ? setShowRules(false) : setShowRules(true);
   };
 
-  const toggleShowTips = () => {
-    showTips ? setShowTips(false) : setShowTips(true);
+  const toggleShowIntro = () => {
+    showIntro ? setShowIntro(false) : setShowIntro(true);
   };
 
   return (
     <div className="App">
-      <Navbar newGame={handleNewGame} toggleRules={toggleRules} />
+      <Navbar
+        newGame={handleNewGame}
+        toggleRules={toggleRules}
+        windowWidth={windowWidth}
+      />
+      {showTurn ? <TurnChange userTurn={userTurn} /> : null}
       {showRules ? <Rules toggleRules={toggleRules} /> : null}
       {isGameOver ? (
         <GameOver data={winData} handleNewGame={handleNewGame} />
@@ -126,7 +150,6 @@ function App() {
             active={!userTurn ? true : false}
             showInfo={true}
           />
-          <TurnIndicator direction={userTurn ? "right" : "left"} />
           <Board
             board={boardOne}
             title="Enemy Boats"
@@ -138,9 +161,10 @@ function App() {
         </div>
       ) : (
         <Setup
-          showTips={showTips}
+          windowWidth={windowWidth}
+          showIntro={showIntro}
           sendUserBoard={handleUserBoard}
-          toggleShowTips={toggleShowTips}
+          toggleShowIntro={toggleShowIntro}
         />
       )}
     </div>

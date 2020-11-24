@@ -1,0 +1,20 @@
+.your-turn,
+.cpu-turn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border: 0.2rem solid #222;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  color: #eee;
+}
+
+.your-turn {
+  background-color: #388e3c;
+}
+
+.cpu-turn {
+  background-color: #512da8;
+}

@@ -13,15 +13,27 @@ const Boatyard = (props) => {
   };
 
   const handleOffsetX = (e) => {
-    let offset = e.nativeEvent.offsetX - 40;
-    offset = Math.ceil(offset / 40);
+    let size = determineSquareSize();
+    let offset = e.nativeEvent.offsetX - size;
+    offset = Math.ceil(offset / size);
     props.sendOffset(offset);
   };
 
   const handleOffsetY = (e) => {
-    let offset = e.nativeEvent.offsetY - 40;
-    offset = Math.ceil(offset / 40);
+    let size = determineSquareSize();
+    let offset = e.nativeEvent.offsetY - size;
+    offset = Math.ceil(offset / size);
     props.sendOffset(offset);
+  };
+
+  const determineSquareSize = () => {
+    return props.windowWidth < 576
+      ? 25
+      : props.windowWidth < 768
+      ? 30
+      : props.windowWidth < 1400
+      ? 40
+      : 50;
   };
 
   const createBoat = () => {
@@ -35,9 +47,6 @@ const Boatyard = (props) => {
   return (
     <div className="boatyard">
       <h1 className="boatyard-title">Place Your Boats</h1>
-      <p className="floating-tip" id="tip1">
-        Click to rotate!
-      </p>
       <div className="dock" onClick={handleClick}>
         {props.boats.length > 0 ? (
           <div
@@ -57,9 +66,6 @@ const Boatyard = (props) => {
       {props.boats.length > 0 ? (
         <h2 className="boat-name">{props.boats[0].name}</h2>
       ) : null}
-      <p className="floating-tip" id="tip2">
-        Drag and drop boats!
-      </p>
     </div>
   );
 };

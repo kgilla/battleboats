@@ -16,17 +16,18 @@ body {
 }
 
 .App {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
 }
 
 .board-container {
+  place-self: center;
   display: grid;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
-@media (max-width: 575.9px) {
+@media (max-width: 359.9px) {
   html {
     font-size: 14px;
   }
@@ -39,14 +40,11 @@ body {
   .board-container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
+    gap: 1rem;
   }
 }
 
-@media (min-width: 576px) {
-  html {
-    font-size: 14px;
-  }
-
+@media (min-width: 360px) {
   :root {
     --square: 30px;
     --game-size: 330px;
@@ -54,15 +52,12 @@ body {
 
   .board-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 10rem 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
   }
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-
   :root {
     --square: 40px;
     --game-size: 440px;
@@ -72,7 +67,8 @@ body {
 @media (min-width: 992px) {
   .board-container {
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 10rem 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
   }
 }
 @media (min-width: 1400px) {

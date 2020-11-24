@@ -10,51 +10,52 @@ const Rules = (props) => {
       <div className="rules-container">
         <div className="main-rules">
           {" "}
-          <h2 className="rules-heading">BattleBoats Rules!</h2>
+          <h2 className="rules-heading">The Rules.</h2>
           <ul>
             {" "}
-            <li>
+            <li className="rule">
               Place your ships manually by dragging and dropping them onto your
               board or by randomly placing them.
             </li>
-            <li>
+            <li className="rule">
               Each turn you must guess a square on your enemy's board you think
               might have a ship.
             </li>
-            <li>
+            <li className="rule">
               If you guess correctly, you are able to continue your attack until
               you miss.
             </li>
-            <li>
+            <li className="rule">
               The game is over once a player successfully sinks all of their
               opponent's boats
             </li>
           </ul>
-          <h2 className="rules-heading">Board Legend</h2>
         </div>
-        <div className="rules-legend">
-          {" "}
-          <div className="legend-item">
+        <div className="rules-legend-container">
+          <h2 className="rules-heading">Board Legend</h2>
+          <ul className="rules-legend">
             {" "}
-            <p>This is your ship :</p>
-            <div className="your-ship"></div>
-          </div>
-          <div className="legend-item">
-            {" "}
-            <p> A hit looks pke:</p>
-            <div className="board-hit">X</div>
-          </div>
-          <div className="legend-item">
-            {" "}
-            <p>A miss looks like :</p>
-            <div className="board-miss">~</div>
-          </div>
-          <div className="legend-item">
-            {" "}
-            <p>This is a sunk ship:</p>
-            <div className="is-sunk">X</div>
-          </div>
-          <div className="legend-item"></div>
+            <div className="legend-item">
+              {" "}
+              <p>Your Ships</p>
+              <div className="your-ship"></div>
+            </div>
+            <div className="legend-item">
+              {" "}
+              <p>A Hit</p>
+              <div className="board-hit">X</div>
+            </div>
+            <div className="legend-item">
+              {" "}
+              <p>A Miss</p>
+              <div className="board-miss">~</div>
+            </div>
+            <div className="legend-item">
+              {" "}
+              <p>A Sunken Boat</p>
+              <div className="is-sunk">X</div>
+            </div>
+          </ul>
         </div>
 
         <button className="setup-button" onClick={handleClick}>

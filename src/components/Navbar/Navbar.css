@@ -4,13 +4,14 @@
 }
 
 .main-nav {
+  position: relative;
   width: 100%;
   max-width: 1400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 3rem;
 }
 
 .nav-title {
@@ -41,4 +42,34 @@
   cursor: pointer;
   filter: brightness(90%);
   border: 0.2rem solid #fff;
+}
+
+.nav-menu {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 15rem;
+  padding: 2rem;
+  border: 0.2rem solid #222;
+  border-radius: 0.5rem;
+  background-image: url("../../Images/pink\ dust.png");
+  color: #eee;
+}
+
+.nav-menu-heading {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.menu-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+#back-button {
+  background-color: #1b5e20;
 }

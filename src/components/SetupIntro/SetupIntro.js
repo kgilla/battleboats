@@ -21,6 +21,9 @@ const SetupIntro = (props) => {
           <li className="setup-intro-tip">
             You can remove a placed ship simply by clicking on it.
           </li>
+          <li className="setup-intro-tip">
+            Lazy? Click random boats and you're ready to pew pew.
+          </li>
         </ul>
         <button className="setup-button" onClick={handleClick}>
           Thanks Tips!
