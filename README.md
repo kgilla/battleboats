@@ -2,7 +2,7 @@
 
 This website was made based on the curriculum of [The Odin Project's](https://www.theodinproject.com/home) Javascript section. BattleBoats is made entirely with [ReactJS](https://reactjs.org/) and vanilla Javascript. Battleboats was made to emphesize the importance of adopting TDD practices early on in a project and using them to drive further development. Battleboats was my first foray into creating a computer "AI" of sorts that is both intuitive but also fair.
 
-[Live Demo](https://kgilla.github.io/weather-app/)
+[Live Demo](https://kgilla.github.io/battleboats/)
 
 ## Learning Objectives
 

@@ -17,6 +17,7 @@ const GameOver = (props) => {
         <a
           href="https://github.com/kgilla/battleboats"
           target="_blank"
+          rel="noreferrer"
           className="icon-link"
         >
           <props.icon className="icon" />
