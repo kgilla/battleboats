@@ -30,12 +30,24 @@ const Board = (props) => {
       } else if (props.handleInput) {
         return "your-square";
       } else {
-        return "your-ship";
+        return determineBoat(cell);
       }
     } else if (props.handleInput) {
       return "your-square";
     } else {
       return "board-square";
+    }
+  };
+
+  const determineBoat = (cell) => {
+    if (cell.boat.name === "Carrier") {
+      return "carrier";
+    } else if (cell.boat.name === "Battleboat") {
+      return "battleboat";
+    } else if (cell.boat.name === "Destroyer") {
+      return "destroyer";
+    } else {
+      return "submarine";
     }
   };
 

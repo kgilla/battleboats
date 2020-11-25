@@ -4,9 +4,9 @@
 }
 
 .main-nav {
-  position: relative;
   width: 100%;
   max-width: 1400px;
+  height: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,12 +21,13 @@
 
 .nav-links {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
   list-style: none;
 }
 
-.nav-button {
+.nav-button,
+.icon-link {
   place-self: center;
   padding: 0.5rem;
   border: 0.2rem solid #222;
@@ -38,7 +39,8 @@
   transition: all 0.2s ease-in-out;
 }
 
-.nav-button:hover {
+.nav-button:hover,
+.icon-link:hover {
   cursor: pointer;
   filter: brightness(90%);
   border: 0.2rem solid #fff;
@@ -72,4 +74,13 @@
 
 #back-button {
   background-color: #1b5e20;
+}
+
+.icon-link {
+  place-self: center;
+}
+
+.icon {
+  height: 1.45rem;
+  width: 1.45rem;
 }

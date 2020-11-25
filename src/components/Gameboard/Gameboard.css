@@ -10,12 +10,6 @@
   background-color: #444;
 }
 
-.gameboard {
-  box-sizing: content-box;
-  border-bottom: 0.4rem solid #444;
-  border-right: 0.4rem solid #444;
-}
-
 .gameboard-col-info {
   grid-column: 1/3;
   grid-row: 1/2;
@@ -49,10 +43,13 @@
 .gameboard {
   grid-column: 2/3;
   grid-row: 2/3;
-  height: 400px;
-  width: 400px;
+  height: var(--gameboard);
+  width: var(--gameboard);
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  box-sizing: content-box;
+  border-bottom: 0.4rem solid #444;
+  border-right: 0.4rem solid #444;
 }
 
 .gameboard-column {
@@ -66,7 +63,10 @@
 .board-miss,
 .is-sunk,
 .your-square,
-.your-ship {
+.carrier,
+.battleboat,
+.destroyer,
+.submarine {
   height: var(--square);
   width: var(--square);
   display: flex;
@@ -107,8 +107,20 @@
   font-size: calc(var(--square) * 0.9);
 }
 
-.your-ship {
+.carrier {
   background-color: #388e3c;
+}
+
+.battleboat {
+  background-color: #512da8;
+}
+
+.destroyer {
+  background-color: #7b1fa2;
+}
+
+.submarine {
+  background-color: #00796b;
 }
 
 .your-info,
@@ -158,31 +170,15 @@
 }
 
 @media (max-width: 359.9px) {
-  .gameboard {
-    height: 250px;
-    width: 250px;
-  }
 }
 
 @media (min-width: 360px) {
-  .gameboard {
-    height: 300px;
-    width: 300px;
-  }
 }
 
 @media (min-width: 768px) {
-  .gameboard {
-    height: 400px;
-    width: 400px;
-  }
 }
 
 @media (min-width: 992px) {
 }
 @media (min-width: 1400px) {
-  .gameboard {
-    height: 500px;
-    width: 500px;
-  }
 }

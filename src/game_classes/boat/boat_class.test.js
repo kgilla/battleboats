@@ -1,17 +1,14 @@
 import Boat from "./boat_class";
 
-test("boat returns isSunk status with a hit()", () => {
-  let boat = new Boat("test", 5);
-  expect(boat.hit()).toEqual({ isSunk: false });
-});
-
-test("boat loses health with hit method", () => {
+test("boat registers hit and loses health", () => {
   let boat = new Boat("test", 5);
   boat.hit();
+  expect(boat).toHaveProperty("isSunk", false);
   expect(boat.hitsLeft).toBe(4);
 });
 
-test("boat returns isSunk as true and gives name", () => {
+test("boat returns isSunk as true", () => {
   let boat = new Boat("test", 1);
-  expect(boat.hit()).toEqual({ isSunk: true, name: boat.name });
+  boat.hit();
+  expect(boat).toHaveProperty("isSunk", true);
 });

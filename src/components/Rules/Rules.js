@@ -14,12 +14,8 @@ const Rules = (props) => {
           <ul>
             {" "}
             <li className="rule">
-              Place your ships manually by dragging and dropping them onto your
-              board or by randomly placing them.
-            </li>
-            <li className="rule">
               Each turn you must guess a square on your enemy's board you think
-              might have a ship.
+              might have a boat.
             </li>
             <li className="rule">
               If you guess correctly, you are able to continue your attack until
@@ -37,8 +33,23 @@ const Rules = (props) => {
             {" "}
             <div className="legend-item">
               {" "}
-              <p>Your Ships</p>
-              <div className="your-ship"></div>
+              <p>Carrier</p>
+              <div className="carrier"></div>
+            </div>
+            <div className="legend-item">
+              {" "}
+              <p>Battleboat</p>
+              <div className="battleboat"></div>
+            </div>
+            <div className="legend-item">
+              {" "}
+              <p>Destroyer</p>
+              <div className="destroyer"></div>
+            </div>
+            <div className="legend-item">
+              {" "}
+              <p>Submarine</p>
+              <div className="submarine"></div>
             </div>
             <div className="legend-item">
               {" "}
@@ -52,7 +63,7 @@ const Rules = (props) => {
             </div>
             <div className="legend-item">
               {" "}
-              <p>A Sunken Boat</p>
+              <p>A Sunk Boat</p>
               <div className="is-sunk">X</div>
             </div>
           </ul>

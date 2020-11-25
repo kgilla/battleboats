@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Navbar.css";
+import { Github } from "@styled-icons/simple-icons";
 
 const Navbar = (props) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -26,6 +27,13 @@ const Navbar = (props) => {
             <button className="nav-button" onClick={handleClick}>
               New Game
             </button>
+            <a
+              href="https://github.com/kgilla/battleboats"
+              target="_blank"
+              className="icon-link"
+            >
+              <Github className="icon" />
+            </a>
           </ul>
         ) : (
           <button className="nav-button" onClick={toggleMenu}>
@@ -51,6 +59,13 @@ const Navbar = (props) => {
                 >
                   Back To Game
                 </button>{" "}
+                <a
+                  href="https://github.com/kgilla/battleboats"
+                  target="_blank"
+                  className="icon-link"
+                >
+                  <Github className="icon" />
+                </a>
               </ul>
             </div>
           </div>

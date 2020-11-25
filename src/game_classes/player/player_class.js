@@ -194,8 +194,6 @@ class Player {
     }
   };
 
-  verifyReverse = (move) => {};
-
   determineNextAttack = (c) => {
     let coords = "";
     if (this.lastMove.direction === "north") {
@@ -217,10 +215,9 @@ class Player {
 
   verifyMoveIsLegal = (move) => {
     if (move) {
-      let result = this.choicesLeft.some(
+      return this.choicesLeft.some(
         (coord) => coord.x === move.coords[0] && coord.y === move.coords[1]
       );
-      return result;
     } else {
       return false;
     }

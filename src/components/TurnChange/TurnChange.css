@@ -1,9 +1,10 @@
 .your-turn,
 .cpu-turn {
   position: fixed;
-  top: 50%;
+  top: calc(var(--game-size) / 2 + 8rem);
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 5;
   padding: 2rem;
   border: 0.2rem solid #222;
   border-radius: 0.5rem;

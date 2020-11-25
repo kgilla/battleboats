@@ -27,7 +27,7 @@ const Boatyard = (props) => {
   };
 
   const determineSquareSize = () => {
-    return props.windowWidth < 576
+    return props.windowWidth < 360
       ? 25
       : props.windowWidth < 768
       ? 30
@@ -39,7 +39,9 @@ const Boatyard = (props) => {
   const createBoat = () => {
     let boat = [];
     for (let i = 0; i < props.boats[0].length; i++) {
-      boat.push(<div key={i} className="boat"></div>);
+      boat.push(
+        <div key={i} className={props.boats[0].name.toLowerCase()}></div>
+      );
     }
     return boat;
   };
