@@ -33,7 +33,9 @@ const Boatyard = (props) => {
       ? 30
       : props.windowWidth < 1400
       ? 40
-      : 50;
+      : props.windowWidth < 2000
+      ? 50
+      : 60;
   };
 
   const createBoat = () => {

@@ -34,6 +34,7 @@ li {
 }
 
 .rules-legend {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -41,10 +42,11 @@ li {
 }
 
 .legend-item {
-  place-self: center;
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr var(--square);
-  gap: 1rem;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-content: space-around;
   align-items: center;
   padding: 0.5rem;
 }
