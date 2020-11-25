@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/battleboats/static/css/main.238e05e4.chunk.css",
-    "main.js": "/battleboats/static/js/main.edc7fd4d.chunk.js",
-    "main.js.map": "/battleboats/static/js/main.edc7fd4d.chunk.js.map",
+    "main.js": "/battleboats/static/js/main.85448976.chunk.js",
+    "main.js.map": "/battleboats/static/js/main.85448976.chunk.js.map",
     "runtime-main.js": "/battleboats/static/js/runtime-main.440e0189.js",
     "runtime-main.js.map": "/battleboats/static/js/runtime-main.440e0189.js.map",
     "static/js/2.0e4c6082.chunk.js": "/battleboats/static/js/2.0e4c6082.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.440e0189.js",
     "static/js/2.0e4c6082.chunk.js",
     "static/css/main.238e05e4.chunk.css",
-    "static/js/main.edc7fd4d.chunk.js"
+    "static/js/main.85448976.chunk.js"
   ]
 }
