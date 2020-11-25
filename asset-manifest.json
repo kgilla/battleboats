@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/battleboats/static/css/main.310af2b5.chunk.css",
-    "main.js": "/battleboats/static/js/main.0c03ecbe.chunk.js",
-    "main.js.map": "/battleboats/static/js/main.0c03ecbe.chunk.js.map",
+    "main.css": "/battleboats/static/css/main.490972bb.chunk.css",
+    "main.js": "/battleboats/static/js/main.49b10a58.chunk.js",
+    "main.js.map": "/battleboats/static/js/main.49b10a58.chunk.js.map",
     "runtime-main.js": "/battleboats/static/js/runtime-main.440e0189.js",
     "runtime-main.js.map": "/battleboats/static/js/runtime-main.440e0189.js.map",
-    "static/js/2.3abb38da.chunk.js": "/battleboats/static/js/2.3abb38da.chunk.js",
-    "static/js/2.3abb38da.chunk.js.map": "/battleboats/static/js/2.3abb38da.chunk.js.map",
+    "static/js/2.c9231b6b.chunk.js": "/battleboats/static/js/2.c9231b6b.chunk.js",
+    "static/js/2.c9231b6b.chunk.js.map": "/battleboats/static/js/2.c9231b6b.chunk.js.map",
     "index.html": "/battleboats/index.html",
-    "static/css/main.310af2b5.chunk.css.map": "/battleboats/static/css/main.310af2b5.chunk.css.map",
-    "static/js/2.3abb38da.chunk.js.LICENSE.txt": "/battleboats/static/js/2.3abb38da.chunk.js.LICENSE.txt",
+    "static/css/main.490972bb.chunk.css.map": "/battleboats/static/css/main.490972bb.chunk.css.map",
+    "static/js/2.c9231b6b.chunk.js.LICENSE.txt": "/battleboats/static/js/2.c9231b6b.chunk.js.LICENSE.txt",
     "static/media/Rules.css": "/battleboats/static/media/pink dust.9a75b78c.png"
   },
   "entrypoints": [
     "static/js/runtime-main.440e0189.js",
-    "static/js/2.3abb38da.chunk.js",
-    "static/css/main.310af2b5.chunk.css",
-    "static/js/main.0c03ecbe.chunk.js"
+    "static/js/2.c9231b6b.chunk.js",
+    "static/css/main.490972bb.chunk.css",
+    "static/js/main.49b10a58.chunk.js"
   ]
 }
