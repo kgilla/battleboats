@@ -14,6 +14,13 @@ const GameOver = (props) => {
         <button className="gameover-button" onClick={handleClick}>
           Play Again?
         </button>
+        <a
+          href="https://github.com/kgilla/battleboats"
+          target="_blank"
+          className="icon-link"
+        >
+          <props.icon className="icon" />
+        </a>
       </div>
     </div>
   );

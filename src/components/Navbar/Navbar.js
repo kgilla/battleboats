@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Navbar.css";
-import { Github } from "@styled-icons/simple-icons";
 
 const Navbar = (props) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -32,7 +31,7 @@ const Navbar = (props) => {
               target="_blank"
               className="icon-link"
             >
-              <Github className="icon" />
+              <props.icon className="icon" />
             </a>
           </ul>
         ) : (
@@ -64,7 +63,7 @@ const Navbar = (props) => {
                   target="_blank"
                   className="icon-link"
                 >
-                  <Github className="icon" />
+                  <props.icon className="icon" />
                 </a>
               </ul>
             </div>

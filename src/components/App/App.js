@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 
+import { Github } from "@styled-icons/simple-icons";
 import Game from "../../game_classes/game/game_class";
 import Board from "../Gameboard";
 import Navbar from "../Navbar";
@@ -137,11 +138,12 @@ function App() {
         newGame={handleNewGame}
         toggleRules={toggleRules}
         windowWidth={windowWidth}
+        icon={Github}
       />
       {showTurn ? <TurnChange userTurn={userTurn} /> : null}
       {showRules ? <Rules toggleRules={toggleRules} /> : null}
       {isGameOver ? (
-        <GameOver data={winData} handleNewGame={handleNewGame} />
+        <GameOver data={winData} handleNewGame={handleNewGame} icon={Github} />
       ) : null}
       {gameStarted ? (
         <div className="board-container">
